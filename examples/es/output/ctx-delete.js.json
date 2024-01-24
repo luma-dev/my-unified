@@ -1,0 +1,68 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 39,
+  "body": [
+    {
+      "type": "ExpressionStatement",
+      "start": 0,
+      "end": 38,
+      "expression": {
+        "type": "CallExpression",
+        "start": 0,
+        "end": 37,
+        "callee": {
+          "type": "ArrowFunctionExpression",
+          "start": 1,
+          "end": 34,
+          "id": null,
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [],
+          "body": {
+            "type": "BlockStatement",
+            "start": 7,
+            "end": 34,
+            "body": [
+              {
+                "type": "ExpressionStatement",
+                "start": 11,
+                "end": 32,
+                "expression": {
+                  "type": "UnaryExpression",
+                  "start": 11,
+                  "end": 31,
+                  "operator": "delete",
+                  "prefix": true,
+                  "argument": {
+                    "type": "MemberExpression",
+                    "start": 18,
+                    "end": 31,
+                    "object": {
+                      "type": "Identifier",
+                      "start": 18,
+                      "end": 28,
+                      "name": "globalThis"
+                    },
+                    "property": {
+                      "type": "Identifier",
+                      "start": 29,
+                      "end": 30,
+                      "name": "a"
+                    },
+                    "computed": true,
+                    "optional": false
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "arguments": [],
+        "optional": false
+      }
+    }
+  ],
+  "sourceType": "module"
+}

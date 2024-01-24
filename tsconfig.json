@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "target": "ES2022",
+    "outDir": "dist",
+    "incremental": true
+  },
+  "include": ["."]
+}
