@@ -1,9 +1,9 @@
 import { MdxJsxFlowElementHast } from "mdast-util-mdx-jsx";
-import { visit } from "./util/visit";
-import { getAttrByName } from "./util/util-mdast";
-import { estreeJsonParseOf } from "./util/estree-json-parse-of";
-import { lumaCounter } from "./luma-counter/micromark-extension";
-import { lumaCounterFromMarkdown } from "./luma-counter/from-markdown-extension";
+import { visit } from "./util/visit.js";
+import { getAttrByName } from "./util/util-mdast.js";
+import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
+import { lumaCounter } from "./luma-counter/micromark-extension.js";
+import { lumaCounterFromMarkdown } from "./luma-counter/from-markdown-extension.js";
 
 type Root = import("hast").Root;
 

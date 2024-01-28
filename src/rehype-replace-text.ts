@@ -1,5 +1,5 @@
-import { replaceJapanesePunctuation } from "./lib/replace-japanese-punctuation";
-import { visit, STEP_OVER } from "./util/visit";
+import { replaceJapanesePunctuation } from "./lib/replace-japanese-punctuation.js";
+import { visit, STEP_OVER } from "./util/visit.js";
 
 type Root = import("hast").Root;
 

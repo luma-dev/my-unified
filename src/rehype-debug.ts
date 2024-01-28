@@ -1,4 +1,4 @@
-import { visit, STEP_OVER } from "./util/visit";
+import { visit, STEP_OVER } from "./util/visit.js";
 import { inspect } from "node:util";
 
 type Root = import("hast").Root;

@@ -1,4 +1,4 @@
-import { extractTerms } from "../detect";
+import { extractTerms } from "../detect.js";
 import { describe, expect, it } from "vitest";
 
 describe("extractTerms", () => {

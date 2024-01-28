@@ -1,8 +1,8 @@
 import { toText } from "hast-util-to-text";
-import { toSlug } from "./lib/to-slug";
-import { STEP_OVER, visit } from "./util/visit";
-import { estreeJsonParseOf } from "./util/estree-json-parse-of";
-import { Toc, TocHeading } from "./types";
+import { toSlug } from "./lib/to-slug.js";
+import { STEP_OVER, visit } from "./util/visit.js";
+import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
+import type { Toc, TocHeading } from "./types.js";
 import type { ElementContent } from "hast";
 
 type Root = import("hast").Root;

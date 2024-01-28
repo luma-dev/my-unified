@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "strict": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "skipLibCheck": true,
     "target": "ES2022",
     "outDir": "dist",

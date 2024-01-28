@@ -1,4 +1,4 @@
-import type { Program } from "@mdx-js/mdx/lib/core";
+import type { Program } from "estree";
 
 export const estreePushCtxConst = (varName: string, v: string): Program => {
   return {

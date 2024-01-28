@@ -1,11 +1,11 @@
-import { lumaSave } from "./luma-save/micromark-extension";
+import { lumaSave } from "./luma-save/micromark-extension.js";
 import type {
   MdxJsxFlowElement,
   MdxJsxFlowElementHast,
 } from "mdast-util-mdx-jsx";
-import { lumaSaveFromMarkdown } from "./luma-save/from-markdown-extension";
-import { DELETE, REPLACE, STEP_OVER, visit } from "./util/visit";
-import { estreeJsonParseOf } from "./util/estree-json-parse-of";
+import { lumaSaveFromMarkdown } from "./luma-save/from-markdown-extension.js";
+import { DELETE, REPLACE, STEP_OVER, visit } from "./util/visit.js";
+import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 
 type Root = import("hast").Root;
 

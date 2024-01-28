@@ -1,5 +1,5 @@
-import { type Extension as FromMarkdownExtension } from "mdast-util-from-markdown";
-import { lumaTermAttributes } from "./constants";
+import type { Extension as FromMarkdownExtension } from "mdast-util-from-markdown";
+import { lumaTermAttributes } from "./constants.js";
 
 export const lumaTermFromMarkdown: FromMarkdownExtension = {
   enter: {

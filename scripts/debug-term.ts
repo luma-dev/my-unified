@@ -1,7 +1,7 @@
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { inspect } from "node:util";
-import { lumaTerm } from "../src/luma-term/micromark-extension";
-import { lumaTermFromMarkdown } from "../src/luma-term/from-markdown-extension";
+import { lumaTerm } from "../src/luma-term/micromark-extension.js";
+import { lumaTermFromMarkdown } from "../src/luma-term/from-markdown-extension.js";
 
 const buf = `
 # Hello

@@ -1,4 +1,4 @@
-import { type Extension as FromMarkdownExtension } from "mdast-util-from-markdown";
+import type { Extension as FromMarkdownExtension } from "mdast-util-from-markdown";
 
 export const lumaCounterFromMarkdown: FromMarkdownExtension = {
   enter: {

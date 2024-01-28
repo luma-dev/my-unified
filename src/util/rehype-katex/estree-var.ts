@@ -1,4 +1,4 @@
-import type { Program } from "@mdx-js/mdx/lib/core";
+import type { Program } from "estree";
 
 export const estreeVar = (varName: string): Program => {
   return {

@@ -5,20 +5,20 @@ import * as path from "node:path";
 
 import remarkFrontmatter from "remark-frontmatter";
 
-import rehypeAddSlug from "../src/rehype-add-slug";
-import rehypeReplaceText from "../src/rehype-replace-text";
-import rehypeKatex from "../src/rehype-katex";
-import rehypeWrap from "../src/rehype-wrap";
-import rehypeCounter from "../src/rehype-counter";
-import rehypeCleanInternal from "../src/rehype-clean-internal";
+import rehypeAddSlug from "../src/rehype-add-slug.js";
+import rehypeReplaceText from "../src/rehype-replace-text.js";
+import rehypeKatex from "../src/rehype-katex.js";
+import rehypeWrap from "../src/rehype-wrap.js";
+import rehypeCounter from "../src/rehype-counter.js";
+import rehypeCleanInternal from "../src/rehype-clean-internal.js";
 // import rehypeDebug from "../src/rehype-debug";
 // import remarkDebug from "../src/remark-debug";
-import remarkTerm from "../src/remark-term";
-import remarkMeta from "../src/remark-meta";
-import rehypeSave from "../src/rehype-save";
+import remarkTerm from "../src/remark-term.js";
+import remarkMeta from "../src/remark-meta.js";
+import rehypeSave from "../src/rehype-save.js";
 import remarkMath from "remark-math";
 
-import * as prompt from "prompt";
+import prompt from "prompt";
 
 const projectRoot = path.resolve(__dirname, "..");
 const exampleDir = path.resolve(projectRoot, "examples/render/input");

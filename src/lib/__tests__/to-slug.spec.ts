@@ -1,4 +1,4 @@
-import { toSlug } from "../to-slug";
+import { toSlug } from "../to-slug.js";
 import { describe, expect, it } from "vitest";
 
 describe("toSlug", () => {

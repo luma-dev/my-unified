@@ -1,4 +1,4 @@
-import { visit, STEP_OVER } from "./visit";
+import { visit, STEP_OVER } from "./visit.js";
 import type { Node } from "unist";
 import * as YAML from "yaml";
 

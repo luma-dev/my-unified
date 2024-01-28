@@ -1,7 +1,7 @@
-import { EXIT, visit } from "./util/visit";
+import { EXIT, visit } from "./util/visit.js";
 import type { MdxJsxFlowElement } from "mdast-util-mdx-jsx";
-import { getAttrByName } from "./util/util-mdast";
-import { estreeJsonParseOf } from "./util/estree-json-parse-of";
+import { getAttrByName } from "./util/util-mdast.js";
+import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 
 type Root = import("hast").Root;
 

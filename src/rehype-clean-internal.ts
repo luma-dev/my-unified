@@ -1,4 +1,4 @@
-import { DELETE, visit } from "./util/visit";
+import { DELETE, visit } from "./util/visit.js";
 
 type Root = import("hast").Root;
 

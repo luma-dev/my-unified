@@ -1,5 +1,5 @@
-import { getMdastMeta } from "./util/util-mdast-meta";
-import { estreeJsonParseOf } from "./util/estree-json-parse-of";
+import { getMdastMeta } from "./util/util-mdast-meta.js";
+import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 
 type Root = import("mdast").Root;
 

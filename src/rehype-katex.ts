@@ -4,16 +4,16 @@ import type {
 } from "mdast-util-mdx-jsx";
 import type { MdxFlowExpressionHast } from "mdast-util-mdx-expression";
 import type { Expression } from "estree";
-import { DELETE, REPLACE, STEP_OVER, visit } from "./util/visit";
+import { DELETE, REPLACE, STEP_OVER, visit } from "./util/visit.js";
 import { toText } from "hast-util-to-text";
-import { getAttrByName } from "./util/util-mdast";
-import { estreeDeclareSymbol } from "./util/rehype-katex/estree-declare-symbol";
-import { estreeResetCtx } from "./util/rehype-katex/estree-ctx-reset";
-import { estreeDeleteCtx } from "./util/rehype-katex/estree-ctx-delete";
-import { estreePushCtx } from "./util/rehype-katex/estree-ctx-push";
-import { estreeCtxValue } from "./util/rehype-katex/estree-ctx-value";
+import { getAttrByName } from "./util/util-mdast.js";
+import { estreeDeclareSymbol } from "./util/rehype-katex/estree-declare-symbol.js";
+import { estreeResetCtx } from "./util/rehype-katex/estree-ctx-reset.js";
+import { estreeDeleteCtx } from "./util/rehype-katex/estree-ctx-delete.js";
+import { estreePushCtx } from "./util/rehype-katex/estree-ctx-push.js";
+import { estreeCtxValue } from "./util/rehype-katex/estree-ctx-value.js";
 import type { Element } from "hast";
-import { getClasses } from "./util/get-classes";
+import { getClasses } from "./util/get-classes.js";
 
 type Root = import("hast").Root;
 

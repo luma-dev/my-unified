@@ -1,13 +1,13 @@
 import type { MdxJsxFlowElement } from "mdast-util-mdx-jsx";
 
-import { lumaTerm } from "./luma-term/micromark-extension";
-import { lumaTermFromMarkdown } from "./luma-term/from-markdown-extension";
-import { getMdastMeta } from "./util/util-mdast-meta";
-import { mapIntersection } from "./lib/map-util";
-import { setAttr, getAttrByName } from "./util/util-mdast";
-import { lumaTermAttributes } from "./luma-term/constants";
-import { STEP_OVER, visit } from "./util/visit";
-import { estreeJsonParseOf } from "./util/estree-json-parse-of";
+import { lumaTerm } from "./luma-term/micromark-extension.js";
+import { lumaTermFromMarkdown } from "./luma-term/from-markdown-extension.js";
+import { getMdastMeta } from "./util/util-mdast-meta.js";
+import { mapIntersection } from "./lib/map-util.js";
+import { setAttr, getAttrByName } from "./util/util-mdast.js";
+import { lumaTermAttributes } from "./luma-term/constants.js";
+import { STEP_OVER, visit } from "./util/visit.js";
+import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 
 type Root = import("mdast").Root;
 
