@@ -1,3 +1,4 @@
+import "mdast-util-mdxjs-esm";
 declare module "micromark-util-types" {
   interface TokenTypeMap {
     "luma:term": "luma:term";
