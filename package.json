@@ -12,8 +12,9 @@
     "./rehype-katex": "./dist/rehype-katex.js",
     "./rehype-wrap": "./dist/rehype-wrap.js",
     "./rehype-save": "./dist/rehype-save.js",
-    "./rehype-meta": "./dist/rehype-meta.js",
+    "./remark-meta": "./dist/remark-meta.js",
     "./rehype-clean-internal": "./dist/rehype-clean-internal.js",
+    "./rehype-replace-text": "./dist/rehype-replace-text.js",
     "./rehype-counter": "./dist/rehype-counter.js"
   },
   "scripts": {

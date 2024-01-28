@@ -2,7 +2,7 @@
  * @type {import('semantic-release').GlobalConfig}
  */
 module.exports = {
-  branches: ["release"],
+  branches: ["main"],
   plugins: [
     "@semantic-release/npm",
     "@semantic-release/github",
