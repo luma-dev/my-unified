@@ -6,6 +6,7 @@
     "skipLibCheck": true,
     "target": "ES2022",
     "outDir": "dist",
+    "declaration": true,
     "incremental": true
   },
   "include": ["."]
