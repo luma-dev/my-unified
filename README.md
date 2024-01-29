@@ -109,7 +109,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     LumaLoaded: (props: LumaLoadedProps) => (
       /* Replace with your component */
       <div>
-        <div>LumaCounter</div>
+        <div>LumaLoaded</div>
         {props.children}
       </div>
     ),
