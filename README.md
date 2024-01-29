@@ -8,7 +8,7 @@
 
 ## ライセンス
 
-[MIT](?tab=MIT-2-ov-file)と[CC0](?tab=CC0-1.0-1-ov-file)でライセンスされています
+[MIT](https://github.com/luma-dev/my-unified?tab=MIT-2-ov-file)と[CC0](https://github.com/luma-dev/my-unified?tab=CC0-1.0-1-ov-file)でライセンスされています
 
 ## インストール
 
