@@ -7,10 +7,13 @@ import type { ElementContent } from "hast";
 
 type Root = import("hast").Root;
 
+type TocHeadingWritable = Omit<TocHeading, "children"> &
+  Record<"children", TocHeadingWritable[]>;
+
 export type RehypeAddSlugPlugin = import("unified").Plugin<[], Root>;
 const rehypeAddSlug: RehypeAddSlugPlugin = () => {
   return (tree) => {
-    const toc: Toc = [];
+    const toc: Toc[number][] = [];
     const tocStack = [{ arr: toc, lv: 0 }];
     const headerComponents: ElementContent[][] = [];
 
@@ -87,7 +90,7 @@ const rehypeAddSlug: RehypeAddSlugPlugin = () => {
       while (tocStack[tocStack.length - 1].lv >= lv) {
         tocStack.pop();
       }
-      const c: TocHeading = {
+      const c: TocHeadingWritable = {
         tag: node.tagName,
         index: headerComponents.length,
         depth: tocStack.length,

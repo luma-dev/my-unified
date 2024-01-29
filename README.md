@@ -1,12 +1,134 @@
-# luma-unified
+# @luma-dev/my-unified
 
 > [!WARNING]
 > このパッケージが提供するプラグインは私のユースケースに特化したものなので，直接使うのは推奨しません．  
 > The plugins provided by this package are specific to my use case, so I do not recommend using them directly!
 
+下記の通りCC0でライセンスしていますので，コピペしてご利用することをおすすめします．
+
 ## ライセンス
 
-MITとCC0でライセンスされています
+[MIT](?tab=MIT-2-ov-file)と[CC0](?tab=CC0-1.0-1-ov-file)でライセンスされています
+
+## インストール
+
+```bash
+npm i @luma-dev/my-unified
+```
+
+## Next.jsでの設定例
+
+ESM (package.jsonのtype=module) 前提での設定例．プラグインの指定順は結果に影響を与えるため注意．
+
+```js
+// next.config.js
+import remarkGfm from 'remark-gfm'
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkMath from 'remark-math';
+
+import createMDX from '@next/mdx'
+
+import rehypeKatex from '@luma-dev/my-unified/rehype-katex';
+import remarkTerm from '@luma-dev/my-unified/remark-term';
+import remarkMeta from '@luma-dev/my-unified/remark-meta';
+import rehypeReplaceText from '@luma-dev/my-unified/rehype-replace-text';
+import rehypeSave from '@luma-dev/my-unified/rehype-save';
+import rehypeCounter from '@luma-dev/my-unified/rehype-counter';
+import rehypeAddSlug from '@luma-dev/my-unified/rehype-add-slug';
+import rehypeWrap from '@luma-dev/my-unified/rehype-wrap';
+import rehypeCleanInternal from '@luma-dev/my-unified/rehype-clean-internal';
+
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+}
+
+const withMDX = createMDX({
+  options: {
+        rehypePlugins: [
+          remarkGfm,
+          rehypeReplaceText,
+          rehypeKatex,
+          rehypeSave,
+          rehypeCounter,
+
+          rehypeAddSlug,
+          rehypeWrap,
+
+          rehypeCleanInternal,
+        ],
+        remarkPlugins: [
+          remarkFrontmatter,
+          remarkMath,
+          remarkTerm,
+          remarkMeta,
+        ],
+  },
+})
+
+export default withMDX(nextConfig)
+```
+
+```tsx
+// mdx-components.tsx
+import type {
+  LumaMdxLayoutProps,
+  LumaTocProps,
+  LumaKatexProps,
+  LumaCounterProps,
+  LumaLoadedProps,
+  LumaTermProps,
+} from '@luma-type/my-unified/types';
+
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    ...components,
+    LumaMdxLayout: (props: LumaMdxLayoutProps) => (
+      /* Replace with your component */
+      <div>
+        <div>LumaMdxLayout</div>
+        {props.children}
+      </div>
+    ),
+    LumaToc: (props: LumaTocProps) => (
+      /* Replace with your component */
+      <div>
+        <div>LumaToc</div>
+        {props.children}
+      </div>
+    ),
+    LumaKatex: (props: LumaKatexProps) => (
+      /* Replace with your component */
+      <div>
+        <div>LumaKatex</div>
+        {props.children}
+      </div>
+    ),
+    LumaCounter: (props: LumaCounterProps) => (
+      /* Replace with your component */
+      <div>
+        <div>LumaCounter</div>
+        {props.children}
+      </div>
+    ),
+    LumaLoaded: (props: LumaLoadedProps) => (
+      /* Replace with your component */
+      <div>
+        <div>LumaCounter</div>
+        {props.children}
+      </div>
+    ),
+    LumaTerm: (props: LumaTermProps) => (
+      /* Replace with your component */
+      <div>
+        <div>LumaTerm</div>
+        {props.children}
+      </div>
+    ),
+  };
+}
+```
 
 ## rehype-add-slug
 
@@ -126,7 +248,8 @@ DefMapImp:
 
 - 下記に対する検出をして共通の定義を差し込むなどを行う
   - `<Katex>`, `<KatexDef>` で囲まれたテキスト
-  - `katex`, `katex-def` という言語で設定したコードブロック -`katex-save` という言語で設定したコードブロックを `<Save>` に変換する
+  - `katex`, `katex-def` という言語で設定したコードブロック
+  - `katex-save` という言語で設定したコードブロックを `<Save>` で囲って変換する
 
 ```ts
 import rehypeKatex from "@luma-dev/my-unified/rehype-katex";
@@ -207,3 +330,23 @@ import rehypeCleanInternal from "@luma-dev/my-unified/rehype-clean-internal";
 ```ts
 import rehypeCounter from "@luma-dev/my-unified/rehype-counter";
 ```
+
+例: 以下の入力に対し，
+
+```mdx
+<C template="%0." />
+
+[#]フォークを持つ
+[#]ナイフを持つ
+[#]切る
+```
+
+以下のように変換される
+
+```mdx
+<LumaCounter index={0} total={3} template="%0." />フォークを持つ
+<LumaCounter index={1} total={3} template="%0." />ナイフを持つ
+<LumaCounter index={2} total={3} template="%0." />切る
+```
+
+`template` をどう扱うか，などは `LumaCounter` を実装することで意味を与えることになる．
