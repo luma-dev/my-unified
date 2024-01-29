@@ -22,52 +22,46 @@ ESM (package.jsonのtype=module) 前提での設定例．プラグインの指�
 
 ```js
 // next.config.js
-import remarkGfm from 'remark-gfm'
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkMath from 'remark-math';
+import remarkGfm from "remark-gfm";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMath from "remark-math";
 
-import createMDX from '@next/mdx'
+import createMDX from "@next/mdx";
 
-import rehypeKatex from '@luma-dev/my-unified/rehype-katex';
-import remarkTerm from '@luma-dev/my-unified/remark-term';
-import remarkMeta from '@luma-dev/my-unified/remark-meta';
-import rehypeReplaceText from '@luma-dev/my-unified/rehype-replace-text';
-import rehypeSave from '@luma-dev/my-unified/rehype-save';
-import rehypeCounter from '@luma-dev/my-unified/rehype-counter';
-import rehypeAddSlug from '@luma-dev/my-unified/rehype-add-slug';
-import rehypeWrap from '@luma-dev/my-unified/rehype-wrap';
-import rehypeCleanInternal from '@luma-dev/my-unified/rehype-clean-internal';
-
+import rehypeKatex from "@luma-dev/my-unified/rehype-katex";
+import remarkTerm from "@luma-dev/my-unified/remark-term";
+import remarkMeta from "@luma-dev/my-unified/remark-meta";
+import rehypeReplaceText from "@luma-dev/my-unified/rehype-replace-text";
+import rehypeSave from "@luma-dev/my-unified/rehype-save";
+import rehypeCounter from "@luma-dev/my-unified/rehype-counter";
+import rehypeAddSlug from "@luma-dev/my-unified/rehype-add-slug";
+import rehypeWrap from "@luma-dev/my-unified/rehype-wrap";
+import rehypeCleanInternal from "@luma-dev/my-unified/rehype-clean-internal";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-}
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+};
 
 const withMDX = createMDX({
   options: {
-        rehypePlugins: [
-          remarkGfm,
-          rehypeReplaceText,
-          rehypeKatex,
-          rehypeSave,
-          rehypeCounter,
+    rehypePlugins: [
+      remarkGfm,
+      rehypeReplaceText,
+      rehypeKatex,
+      rehypeSave,
+      rehypeCounter,
 
-          rehypeAddSlug,
-          rehypeWrap,
+      rehypeAddSlug,
+      rehypeWrap,
 
-          rehypeCleanInternal,
-        ],
-        remarkPlugins: [
-          remarkFrontmatter,
-          remarkMath,
-          remarkTerm,
-          remarkMeta,
-        ],
+      rehypeCleanInternal,
+    ],
+    remarkPlugins: [remarkFrontmatter, remarkMath, remarkTerm, remarkMeta],
   },
-})
+});
 
-export default withMDX(nextConfig)
+export default withMDX(nextConfig);
 ```
 
 ```tsx
@@ -79,7 +73,7 @@ import type {
   LumaCounterProps,
   LumaLoadedProps,
   LumaTermProps,
-} from '@luma-type/my-unified/types';
+} from "@luma-type/my-unified/types";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -344,9 +338,12 @@ import rehypeCounter from "@luma-dev/my-unified/rehype-counter";
 以下のように変換される
 
 ```mdx
-<LumaCounter index={0} total={3} template="%0." />フォークを持つ
-<LumaCounter index={1} total={3} template="%0." />ナイフを持つ
-<LumaCounter index={2} total={3} template="%0." />切る
+<LumaCounter index={0} total={3} template="%0." />
+フォークを持つ
+<LumaCounter index={1} total={3} template="%0." />
+ナイフを持つ
+<LumaCounter index={2} total={3} template="%0." />
+切る
 ```
 
 `template` をどう扱うか，などは `LumaCounter` を実装することで意味を与えることになる．
