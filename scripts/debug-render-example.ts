@@ -16,6 +16,7 @@ import rehypeCleanInternal from "../src/rehype-clean-internal.js";
 import remarkTerm from "../src/remark-term.js";
 import remarkMeta from "../src/remark-meta.js";
 import rehypeSave from "../src/rehype-save.js";
+import rehypeCodeMeta from "../src/rehype-code-meta.js";
 import remarkMath from "remark-math";
 
 import prompt from "prompt";
@@ -57,6 +58,7 @@ const main = async () => {
           [rehypeKatex, { dynamicSuffix: () => "0" }],
           rehypeSave,
           rehypeCounter,
+          rehypeCodeMeta,
 
           rehypeAddSlug,
           rehypeWrap,

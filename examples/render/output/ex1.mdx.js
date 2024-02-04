@@ -24,7 +24,7 @@ function _createMdxContent(props) {
   if (!LumaToc) _missingMdxReference("LumaToc", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
-      '{"data":{},"history":[],"messages":[],"value":"# これはh1だよ\\n\\n## これはh2だよ\\n\\n文章がここにくるよ1．\\n文章がここにくるよ2．\\n\\n```ts\\n// これはコードブロックだよ．\\ndeclare const name: string;\\nconsole.log(name);\\n```\\n\\n[これはリンクだよ，ほんとに．](https://example.com)\\n\\n> これは引用だよ．\\n> これは引用だよ．\\n\\n<Foo>\\n  <Bar>baz</Bar>\\n</Foo>\\n\\n### これはh3だよ\\n\\n文章がここにくるよ3．\\n\\n$a+b$ は $b+a$ と等しい．\\n\\n$$\\n\\\\begin{aligned}\\n  a + b &= b + a \\\\\\\\\\n  a \\\\times b &= b \\\\times a\\n\\\\end{aligned}\\n$$\\n"}',
+      '{"data":{},"history":[],"messages":[],"value":"# これはh1だよ\\n\\n## これはh2だよ\\n\\n文章がここにくるよ1．\\n文章がここにくるよ2．\\n\\n```ts {2}\\n// これはコードブロックだよ．\\ndeclare const name: string;\\nconsole.log(name);\\n```\\n\\n[これはリンクだよ，ほんとに．](https://example.com)\\n\\n> これは引用だよ．\\n> これは引用だよ．\\n\\n<Foo>\\n  <Bar>baz</Bar>\\n</Foo>\\n\\n### これはh3だよ\\n\\n文章がここにくるよ3．\\n\\n$a+b$ は $b+a$ と等しい．\\n\\n$$\\n\\\\begin{aligned}\\n  a + b &= b + a \\\\\\\\\\n  a \\\\times b &= b \\\\times a\\n\\\\end{aligned}\\n$$\\n"}',
     ),
     meta: JSON.parse("null"),
     toc: JSON.parse(
@@ -67,6 +67,7 @@ function _createMdxContent(props) {
       _jsx(_components.pre, {
         children: _jsx(_components.code, {
           className: "language-ts",
+          meta: "{2}",
           children:
             "// これはコードブロックだよ．\ndeclare const name: string;\nconsole.log(name);\n",
         }),

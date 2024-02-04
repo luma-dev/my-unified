@@ -317,6 +317,14 @@ import rehypeSave from "@luma-dev/my-unified/rehype-meta";
 import rehypeCleanInternal from "@luma-dev/my-unified/rehype-clean-internal";
 ```
 
+## rehype-code-meta
+
+`<code>` に `.data.meta` をプロパティとして加えるプラグイン．
+
+```ts
+import rehypeCodeMeta from "@luma-dev/my-unified/rehype-code-meta";
+```
+
 ## rehype-counter
 
 `[#name]` という記法で，その名前ごとに登場回数をカウントして `<LumaCounter index={0} total={3} />` のように置き換える． `<C $name anyAttr="something" />` のように書くことでそれ以降のその名前のカウンタに属性を一律で付与できる．
