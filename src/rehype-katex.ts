@@ -41,15 +41,16 @@ const expressionOfMdxJsxExpressionAttribute = (
 
 export type RehypeKatexPlugin = import("unified").Plugin<
   [
-    Readonly<{
-      dynamicSuffix?: () => string;
-    }>,
+    | Readonly<{
+        dynamicSuffix?: () => string;
+      }>
+    | undefined,
   ],
   Root
 >;
 const rehypeKatex: RehypeKatexPlugin = ({
   dynamicSuffix = () => Math.random().toString(36).slice(2),
-}) => {
+} = {}) => {
   return async (tree, file) => {
     const dynamicKeyName = `_rehypeKatexContext${dynamicSuffix()}`;
     tree.children.unshift({
