@@ -10,8 +10,7 @@ function _createMdxContent(props) {
       p: "p",
       ...props.components,
     },
-    { C, LumaCounter, LumaMdxLayout, LumaToc } = _components;
-  if (!C) _missingMdxReference("C", true);
+    { LumaCounter, LumaMdxLayout, LumaToc } = _components;
   if (!LumaCounter) _missingMdxReference("LumaCounter", true);
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
   if (!LumaToc) _missingMdxReference("LumaToc", true);
@@ -66,10 +65,6 @@ function _createMdxContent(props) {
       }),
       void (globalThis[_rehypeKatexContext0] = ""),
       "\n",
-      _jsx(C, {
-        $foo: true,
-        template: "%1(/%n): ",
-      }),
       "\n",
       _jsxs(_components.h1, {
         slug: "用意する",
@@ -120,9 +115,6 @@ function _createMdxContent(props) {
         ],
       }),
       "\n",
-      _jsx(C, {
-        template: "%0.",
-      }),
       "\n",
       _jsxs(_components.p, {
         children: [
@@ -147,10 +139,6 @@ function _createMdxContent(props) {
         ],
       }),
       "\n",
-      _jsx(C, {
-        template: "[重要] %0.",
-        keep: true,
-      }),
       "\n",
       _jsxs(_components.p, {
         children: [
@@ -171,9 +159,6 @@ function _createMdxContent(props) {
         ],
       }),
       "\n",
-      _jsx(C, {
-        template: "%0.",
-      }),
       "\n",
       _jsx(_components.p, {
         children: "片付け編:",

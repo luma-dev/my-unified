@@ -1,5 +1,5 @@
 import { MdxJsxFlowElementHast } from "mdast-util-mdx-jsx";
-import { visit } from "./util/visit.js";
+import { DELETE, visit } from "./util/visit.js";
 import { getAttrByName } from "./util/util-mdast.js";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 import { lumaCounter } from "./luma-counter/micromark-extension.js";
@@ -70,6 +70,7 @@ const rehypeCounter: RehypeCounterPlugin = function () {
           resetCounter(name);
           count.set(name, 0);
         }
+        return DELETE;
       } else if (
         node.type === "mdxJsxFlowElement" &&
         node.name === "_luma_internal_counter"
