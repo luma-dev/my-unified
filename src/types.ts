@@ -12,7 +12,7 @@ export type TocHeading = {
 export type Toc = ReadonlyArray<TocHeading>;
 export interface LumaMdxLayoutPropsFile {
   data: unknown;
-  history: unknown[];
+  history: string[];
   messages: unknown[];
   path?: string;
   value: string;
