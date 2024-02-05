@@ -1,4 +1,4 @@
-import { visit, STEP_OVER } from "./util/visit.js";
+import { visit, STEP_OVER } from "@luma-dev/unist-util-visit-fast";
 import { inspect } from "node:util";
 
 type Root = import("mdast").Root;

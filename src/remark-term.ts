@@ -6,7 +6,7 @@ import { getMdastMeta } from "./util/util-mdast-meta.js";
 import { mapIntersection } from "./lib/map-util.js";
 import { setAttr, getAttrByName } from "./util/util-mdast.js";
 import { lumaTermAttributes } from "./luma-term/constants.js";
-import { STEP_OVER, visit } from "./util/visit.js";
+import { STEP_OVER, visit } from "@luma-dev/unist-util-visit-fast";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 
 type Root = import("mdast").Root;

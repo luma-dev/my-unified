@@ -1,4 +1,4 @@
-import { EXIT, visit } from "./util/visit.js";
+import { EXIT, visit } from "@luma-dev/unist-util-visit-fast";
 import type { MdxJsxFlowElement } from "mdast-util-mdx-jsx";
 import { getAttrByName } from "./util/util-mdast.js";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";

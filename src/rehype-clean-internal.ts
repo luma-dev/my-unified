@@ -1,4 +1,4 @@
-import { DELETE, visit } from "./util/visit.js";
+import { DELETE, visit } from "@luma-dev/unist-util-visit-fast";
 
 type Root = import("hast").Root;
 

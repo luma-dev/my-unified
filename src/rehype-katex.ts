@@ -4,7 +4,12 @@ import type {
 } from "mdast-util-mdx-jsx";
 import type { MdxFlowExpressionHast } from "mdast-util-mdx-expression";
 import type { Expression } from "estree";
-import { DELETE, REPLACE, STEP_OVER, visit } from "./util/visit.js";
+import {
+  DELETE,
+  REPLACE,
+  STEP_OVER,
+  visit,
+} from "@luma-dev/unist-util-visit-fast";
 import { toText } from "hast-util-to-text";
 import { getAttrByName } from "./util/util-mdast.js";
 import { estreeDeclareSymbol } from "./util/rehype-katex/estree-declare-symbol.js";

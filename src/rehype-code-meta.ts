@@ -1,4 +1,4 @@
-import { visit, STEP_OVER } from "./util/visit.js";
+import { visit, STEP_OVER } from "@luma-dev/unist-util-visit-fast";
 
 type Root = import("hast").Root;
 

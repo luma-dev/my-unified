@@ -1,5 +1,5 @@
 import { MdxJsxFlowElementHast } from "mdast-util-mdx-jsx";
-import { DELETE, visit } from "./util/visit.js";
+import { DELETE, visit } from "@luma-dev/unist-util-visit-fast";
 import { getAttrByName } from "./util/util-mdast.js";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 import { lumaCounter } from "./luma-counter/micromark-extension.js";

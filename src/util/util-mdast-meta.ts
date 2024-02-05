@@ -1,4 +1,4 @@
-import { visit, STEP_OVER } from "./visit.js";
+import { visit, STEP_OVER } from "@luma-dev/unist-util-visit-fast";
 import type { Node } from "unist";
 import * as YAML from "yaml";
 
