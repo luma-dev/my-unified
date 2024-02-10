@@ -1,9 +1,9 @@
-import { toText } from "hast-util-to-text";
 import { toSlug } from "./lib/to-slug.js";
 import { STEP_OVER, visit } from "@luma-dev/unist-util-visit-fast";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 import type { Toc, TocHeading } from "./types.js";
 import type { ElementContent } from "hast";
+import { myToText } from "./my-to-text.js";
 
 type Root = import("hast").Root;
 
@@ -36,7 +36,7 @@ const rehypeAddSlug: RehypeAddSlugPlugin = () => {
         )
       )
         return;
-      const text = toText(node).trim();
+      const text = myToText(node).trim();
       const slug = toSlug(text);
 
       // id 設定

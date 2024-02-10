@@ -57,8 +57,9 @@ const remarkTerm: RemarkTermPlugin = function () {
             );
             return STEP_OVER;
           }
-          const imp = defMapImpFlow.get(rawAttr.value);
-          const exp = defMapExpFlow.get(rawAttr.value);
+          const rawAttrValue = rawAttr.value;
+          const imp = defMapImpFlow.get(rawAttrValue);
+          const exp = defMapExpFlow.get(rawAttrValue);
           let resolved: string;
           if (imp != null) {
             resolved = imp;
@@ -69,8 +70,8 @@ const remarkTerm: RemarkTermPlugin = function () {
             setAttr(node, lumaTermAttributes.termRef, exp);
             setAttr(node, lumaTermAttributes.gotBy, "exp");
           } else {
-            resolved = rawAttr.value;
-            setAttr(node, lumaTermAttributes.termRef, rawAttr.value);
+            resolved = rawAttrValue;
+            setAttr(node, lumaTermAttributes.termRef, rawAttrValue);
             setAttr(node, lumaTermAttributes.gotBy, "raw");
           }
           let arr = nodes.get(resolved);
