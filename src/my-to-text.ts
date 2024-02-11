@@ -14,10 +14,14 @@ export const myToText = (
       const rawAttr = getAttrByName(node, lumaTermAttributes.rawTermRef);
       if (rawAttr?.type !== "mdxJsxAttribute") return STEP_OVER;
       if (typeof rawAttr.value !== "string") return STEP_OVER;
+      let text = rawAttr.value;
+      if (text.startsWith("!")) {
+        text = text.slice(1);
+      }
       return REPLACE(
         {
           type: "text",
-          value: rawAttr.value,
+          value: text,
         } satisfies Text,
         STEP_OVER,
       );
