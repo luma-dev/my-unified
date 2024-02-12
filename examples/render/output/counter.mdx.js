@@ -10,10 +10,9 @@ function _createMdxContent(props) {
       p: "p",
       ...props.components,
     },
-    { LumaCounter, LumaMdxLayout, LumaToc } = _components;
+    { LumaCounter, LumaMdxLayout } = _components;
   if (!LumaCounter) _missingMdxReference("LumaCounter", true);
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
-  if (!LumaToc) _missingMdxReference("LumaToc", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
       '{"data":{},"history":[],"messages":[],"value":"<C $foo template=\\"%1(/%n): \\" />\\n\\n# [#foo]用意する\\n\\n...\\n\\n# [#foo]調理する\\n\\n...\\n\\n# [#foo]食べる\\n\\n<C template=\\"%0.\\" />\\n\\n[#]フォークを持つ\\n[#]ナイフを持つ\\n[#]切る\\n\\n<C template=\\"[重要] %0.\\" keep />\\n\\n[#]フォークで刺す\\n[#]ほおばる\\n\\n<C template=\\"%0.\\" />\\n\\n片付け編:\\n\\n[#]洗う\\n[#]乾かす\\n"}',
@@ -22,47 +21,45 @@ function _createMdxContent(props) {
     toc: JSON.parse(
       '[{"tag":"h1","index":0,"depth":1,"titleText":"用意する","level":1,"slug":"用意する","children":[]},{"tag":"h1","index":1,"depth":1,"titleText":"調理する","level":1,"slug":"調理する","children":[]},{"tag":"h1","index":2,"depth":1,"titleText":"食べる","level":1,"slug":"食べる","children":[]}]',
     ),
-    children: [
-      _jsxs(LumaToc, {
-        toc: JSON.parse(
-          '[{"tag":"h1","index":0,"depth":1,"titleText":"用意する","level":1,"slug":"用意する","children":[]},{"tag":"h1","index":1,"depth":1,"titleText":"調理する","level":1,"slug":"調理する","children":[]},{"tag":"h1","index":2,"depth":1,"titleText":"食べる","level":1,"slug":"食べる","children":[]}]',
-        ),
+    headers: [
+      _jsxs(_Fragment, {
         children: [
-          _jsxs(_Fragment, {
-            children: [
-              _jsx(LumaCounter, {
-                $foo: true,
-                template: "%1(/%n): ",
-                index: JSON.parse("0"),
-                total: JSON.parse("3"),
-              }),
-              "用意する",
-            ],
+          _jsx(LumaCounter, {
+            $foo: true,
+            template: "%1(/%n): ",
+            index: JSON.parse("0"),
+            total: JSON.parse("3"),
+            "luma:isInsideToc": JSON.parse("true"),
           }),
-          _jsxs(_Fragment, {
-            children: [
-              _jsx(LumaCounter, {
-                $foo: true,
-                template: "%1(/%n): ",
-                index: JSON.parse("1"),
-                total: JSON.parse("3"),
-              }),
-              "調理する",
-            ],
-          }),
-          _jsxs(_Fragment, {
-            children: [
-              _jsx(LumaCounter, {
-                $foo: true,
-                template: "%1(/%n): ",
-                index: JSON.parse("2"),
-                total: JSON.parse("3"),
-              }),
-              "食べる",
-            ],
-          }),
+          "用意する",
         ],
       }),
+      _jsxs(_Fragment, {
+        children: [
+          _jsx(LumaCounter, {
+            $foo: true,
+            template: "%1(/%n): ",
+            index: JSON.parse("1"),
+            total: JSON.parse("3"),
+            "luma:isInsideToc": JSON.parse("true"),
+          }),
+          "調理する",
+        ],
+      }),
+      _jsxs(_Fragment, {
+        children: [
+          _jsx(LumaCounter, {
+            $foo: true,
+            template: "%1(/%n): ",
+            index: JSON.parse("2"),
+            total: JSON.parse("3"),
+            "luma:isInsideToc": JSON.parse("true"),
+          }),
+          "食べる",
+        ],
+      }),
+    ],
+    children: [
       void (globalThis[_rehypeKatexContext0] = ""),
       "\n",
       "\n",

@@ -1,4 +1,4 @@
-import { EXIT, visit } from "@luma-dev/unist-util-visit-fast";
+import { DELETE_EXIT, EXIT, visit } from "@luma-dev/unist-util-visit-fast";
 import type { MdxJsxFlowElement } from "mdast-util-mdx-jsx";
 import { getAttrByName } from "./util/util-mdast.js";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
@@ -51,11 +51,13 @@ const rehypeWrap: RehypeWrapPlugin = () => {
 
     visit(tree, (node) => {
       if (node.type === "mdxJsxFlowElement" && node.name === "LumaToc") {
-        const attr = getAttrByName(node, "toc");
-        if (attr != null) {
-          attributes.push(attr);
+        for (const attrName of ["toc", "headers"]) {
+          const attr = getAttrByName(node, attrName);
+          if (attr != null) {
+            attributes.push(attr);
+          }
         }
-        return EXIT;
+        return DELETE_EXIT;
       }
     });
 

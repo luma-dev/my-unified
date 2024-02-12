@@ -10,9 +10,8 @@ function _createMdxContent(props) {
       p: "p",
       ...props.components,
     },
-    { LumaMdxLayout, LumaToc } = _components;
+    { LumaMdxLayout } = _components;
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
-  if (!LumaToc) _missingMdxReference("LumaToc", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
       '{"data":{},"history":[],"messages":[],"value":"---\\ntitle: foobar\\npublish: true\\nDefMapImp:\\n  逆元: 行列の逆元\\n---\\n\\nhey!\\n\\n# foobar\\n\\nis ongoing.\\n"}',
@@ -21,15 +20,12 @@ function _createMdxContent(props) {
     toc: JSON.parse(
       '[{"tag":"h1","index":0,"depth":1,"titleText":"foobar","level":1,"slug":"foobar","children":[]}]',
     ),
-    children: [
-      _jsx(LumaToc, {
-        toc: JSON.parse(
-          '[{"tag":"h1","index":0,"depth":1,"titleText":"foobar","level":1,"slug":"foobar","children":[]}]',
-        ),
-        children: _jsx(_Fragment, {
-          children: "foobar",
-        }),
+    headers: [
+      _jsx(_Fragment, {
+        children: "foobar",
       }),
+    ],
+    children: [
       void (globalThis[_rehypeKatexContext0] = ""),
       "\n",
       _jsx(_components.p, {

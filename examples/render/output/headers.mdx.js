@@ -10,9 +10,8 @@ function _createMdxContent(props) {
       h2: "h2",
       ...props.components,
     },
-    { LumaMdxLayout, LumaToc } = _components;
+    { LumaMdxLayout } = _components;
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
-  if (!LumaToc) _missingMdxReference("LumaToc", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
       '{"data":{},"history":[],"messages":[],"value":"# hello world\\n\\n## 1. getting started\\n\\n## 2. install\\n\\n## 3. uninstall\\n\\n# description\\n\\n## 1. something\\n\\n## 2. other\\n"}',
@@ -21,35 +20,30 @@ function _createMdxContent(props) {
     toc: JSON.parse(
       '[{"tag":"h1","index":0,"depth":1,"titleText":"hello world","level":1,"slug":"hello_world","children":[{"tag":"h2","index":1,"depth":2,"titleText":"1. getting started","level":2,"slug":"1.getting_started","children":[]},{"tag":"h2","index":2,"depth":2,"titleText":"2. install","level":2,"slug":"2.install","children":[]},{"tag":"h2","index":3,"depth":2,"titleText":"3. uninstall","level":2,"slug":"3.uninstall","children":[]}]},{"tag":"h1","index":4,"depth":1,"titleText":"description","level":1,"slug":"description","children":[{"tag":"h2","index":5,"depth":2,"titleText":"1. something","level":2,"slug":"1.something","children":[]},{"tag":"h2","index":6,"depth":2,"titleText":"2. other","level":2,"slug":"2.other","children":[]}]}]',
     ),
-    children: [
-      _jsxs(LumaToc, {
-        toc: JSON.parse(
-          '[{"tag":"h1","index":0,"depth":1,"titleText":"hello world","level":1,"slug":"hello_world","children":[{"tag":"h2","index":1,"depth":2,"titleText":"1. getting started","level":2,"slug":"1.getting_started","children":[]},{"tag":"h2","index":2,"depth":2,"titleText":"2. install","level":2,"slug":"2.install","children":[]},{"tag":"h2","index":3,"depth":2,"titleText":"3. uninstall","level":2,"slug":"3.uninstall","children":[]}]},{"tag":"h1","index":4,"depth":1,"titleText":"description","level":1,"slug":"description","children":[{"tag":"h2","index":5,"depth":2,"titleText":"1. something","level":2,"slug":"1.something","children":[]},{"tag":"h2","index":6,"depth":2,"titleText":"2. other","level":2,"slug":"2.other","children":[]}]}]',
-        ),
-        children: [
-          _jsx(_Fragment, {
-            children: "hello world",
-          }),
-          _jsx(_Fragment, {
-            children: "1. getting started",
-          }),
-          _jsx(_Fragment, {
-            children: "2. install",
-          }),
-          _jsx(_Fragment, {
-            children: "3. uninstall",
-          }),
-          _jsx(_Fragment, {
-            children: "description",
-          }),
-          _jsx(_Fragment, {
-            children: "1. something",
-          }),
-          _jsx(_Fragment, {
-            children: "2. other",
-          }),
-        ],
+    headers: [
+      _jsx(_Fragment, {
+        children: "hello world",
       }),
+      _jsx(_Fragment, {
+        children: "1. getting started",
+      }),
+      _jsx(_Fragment, {
+        children: "2. install",
+      }),
+      _jsx(_Fragment, {
+        children: "3. uninstall",
+      }),
+      _jsx(_Fragment, {
+        children: "description",
+      }),
+      _jsx(_Fragment, {
+        children: "1. something",
+      }),
+      _jsx(_Fragment, {
+        children: "2. other",
+      }),
+    ],
+    children: [
       void (globalThis[_rehypeKatexContext0] = ""),
       "\n",
       _jsx(_components.h1, {

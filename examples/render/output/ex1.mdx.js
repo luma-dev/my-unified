@@ -16,13 +16,12 @@ function _createMdxContent(props) {
       pre: "pre",
       ...props.components,
     },
-    { Bar, Foo, LumaKatex, LumaMdxLayout, LumaTerm, LumaToc } = _components;
+    { Bar, Foo, LumaKatex, LumaMdxLayout, LumaTerm } = _components;
   if (!Bar) _missingMdxReference("Bar", true);
   if (!Foo) _missingMdxReference("Foo", true);
   if (!LumaKatex) _missingMdxReference("LumaKatex", true);
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
   if (!LumaTerm) _missingMdxReference("LumaTerm", true);
-  if (!LumaToc) _missingMdxReference("LumaToc", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
       '{"data":{},"history":[],"messages":[],"value":"# これはh1だよ\\n\\n## これはh2だよ\\n\\n文章がここにくるよ1．\\n文章がここにくるよ2．\\n\\n```ts {2}\\n// これはコードブロックだよ．\\ndeclare const name: string;\\nconsole.log(name);\\n```\\n\\n[これはリンクだよ，ほんとに．](https://example.com)\\n\\n> これは引用だよ．\\n> これは引用だよ．\\n\\n<Foo>\\n  <Bar>baz</Bar>\\n</Foo>\\n\\n### これは[@重要な]h3だよ\\n\\n文章がここにくるよ3．\\n\\n$a+b$ は $b+a$ と等しい．\\n\\n$$\\n\\\\begin{aligned}\\n  a + b &= b + a \\\\\\\\\\n  a \\\\times b &= b \\\\times a\\n\\\\end{aligned}\\n$$\\n"}',
@@ -31,33 +30,29 @@ function _createMdxContent(props) {
     toc: JSON.parse(
       '[{"tag":"h1","index":0,"depth":1,"titleText":"これはh1だよ","level":1,"slug":"これはh1だよ","children":[{"tag":"h2","index":1,"depth":2,"titleText":"これはh2だよ","level":2,"slug":"これはh2だよ","children":[{"tag":"h3","index":2,"depth":3,"titleText":"これは重要なh3だよ","level":3,"slug":"これは重要なh3だよ","children":[]}]}]}]',
     ),
-    children: [
-      _jsxs(LumaToc, {
-        toc: JSON.parse(
-          '[{"tag":"h1","index":0,"depth":1,"titleText":"これはh1だよ","level":1,"slug":"これはh1だよ","children":[{"tag":"h2","index":1,"depth":2,"titleText":"これはh2だよ","level":2,"slug":"これはh2だよ","children":[{"tag":"h3","index":2,"depth":3,"titleText":"これは重要なh3だよ","level":3,"slug":"これは重要なh3だよ","children":[]}]}]}]',
-        ),
+    headers: [
+      _jsx(_Fragment, {
+        children: "これはh1だよ",
+      }),
+      _jsx(_Fragment, {
+        children: "これはh2だよ",
+      }),
+      _jsxs(_Fragment, {
         children: [
-          _jsx(_Fragment, {
-            children: "これはh1だよ",
+          "これは",
+          _jsx(LumaTerm, {
+            rawTermRef: "重要な",
+            termRef: "重要な",
+            gotBy: "raw",
+            indexInPage: JSON.parse("0"),
+            totalInPage: JSON.parse("1"),
+            "luma:isInsideToc": JSON.parse("true"),
           }),
-          _jsx(_Fragment, {
-            children: "これはh2だよ",
-          }),
-          _jsxs(_Fragment, {
-            children: [
-              "これは",
-              _jsx(LumaTerm, {
-                rawTermRef: "重要な",
-                termRef: "重要な",
-                gotBy: "raw",
-                indexInPage: JSON.parse("0"),
-                totalInPage: JSON.parse("1"),
-              }),
-              "h3だよ",
-            ],
-          }),
+          "h3だよ",
         ],
       }),
+    ],
+    children: [
       void (globalThis[_rehypeKatexContext0] = ""),
       "\n",
       _jsx(_components.h1, {

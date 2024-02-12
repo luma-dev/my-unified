@@ -1,5 +1,8 @@
-import type { ReactNode } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 
+export type PropsWithLumaMdx<T = unknown> = T & {
+  readonly "luma:isInsideToc"?: boolean;
+};
 export type TocHeading = {
   readonly tag: string;
   readonly level: number;
@@ -10,39 +13,35 @@ export type TocHeading = {
   readonly children: Toc;
 };
 export type Toc = ReadonlyArray<TocHeading>;
-export interface LumaMdxLayoutPropsFile {
+export interface LumaMdxLayoutPropsFile extends PropsWithLumaMdx {
   data: unknown;
   history: string[];
   messages: unknown[];
   path?: string;
   value: string;
 }
-export interface LumaMdxLayoutProps {
+export interface LumaMdxLayoutProps
+  extends PropsWithChildren,
+    PropsWithLumaMdx {
   toc: Toc;
+  headers: ReactNode[];
   file: LumaMdxLayoutPropsFile;
   meta: unknown;
-  /** First element is LumaToc */
-  children: [ReactNode, ...ReactNode[]];
 }
-export interface LumaTocProps {
-  toc: Toc;
-  children: ReactNode[];
-}
-export interface LumaKatexProps {
+export interface LumaKatexProps extends PropsWithLumaMdx {
   content: string;
   options: string;
   defContext: string;
 }
-export interface LumaCounterProps {
+export interface LumaCounterProps extends PropsWithLumaMdx {
   index: number;
   total: number;
 }
-export interface LumaLoadedProps {
+export interface LumaLoadedProps extends PropsWithChildren, PropsWithLumaMdx {
   byName: string;
   found: boolean;
-  children?: ReactNode;
 }
-export interface LumaTermProps {
+export interface LumaTermProps extends PropsWithLumaMdx {
   rawTermRef: string;
   termRef: string;
   gotBy: "imp" | "exp" | "raw";

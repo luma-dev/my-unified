@@ -68,7 +68,6 @@ export default withMDX(nextConfig);
 // mdx-components.tsx
 import type {
   LumaMdxLayoutProps,
-  LumaTocProps,
   LumaKatexProps,
   LumaCounterProps,
   LumaLoadedProps,
@@ -82,13 +81,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       /* Replace with your component */
       <div>
         <div>LumaMdxLayout</div>
-        {props.children}
-      </div>
-    ),
-    LumaToc: (props: LumaTocProps) => (
-      /* Replace with your component */
-      <div>
-        <div>LumaToc</div>
         {props.children}
       </div>
     ),
@@ -270,14 +262,16 @@ hello
 以下のように変換される
 
 ```mdx
-<LumaMdxLayout meta={{ foo: 'bar' }} file={...} toc={...}>
+<LumaMdxLayout meta={{ foo: 'bar' }} file={...} toc={...} headers={...}>
 hello
 </LumaMdxLayout>
 ```
 
 - `file` はmdxファイル自体の情報
 - `toc` はヘッダをまとめた情報
-  - `[{ tag: 'h1', level: 1, titleComponent: ..., titleText: '...', slug: '...', children: [...] }, ...]` という形式になる
+  - `[{ tag: 'h1', level: 1, index: 0, titleComponent: ..., titleText: '...', slug: '...', children: [...] }, ...]` という形式になる
+- `headers` はヘッダの中身のレンダー済みコンポーネントのリスト
+  - `toc` のインデックス情報がこちらのリストのインデックスに対応する
 
 ## remark-save
 

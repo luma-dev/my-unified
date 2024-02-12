@@ -5,18 +5,15 @@ function _createMdxContent(props) {
       p: "p",
       ...props.components,
     },
-    { LumaLoaded, LumaMdxLayout, LumaToc } = _components;
+    { LumaLoaded, LumaMdxLayout } = _components;
   if (!LumaLoaded) _missingMdxReference("LumaLoaded", true);
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
-  if (!LumaToc) _missingMdxReference("LumaToc", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse('{"data":{},"history":[],"messages":[],"value":"[$]\\n"}'),
     meta: JSON.parse("null"),
     toc: JSON.parse("[]"),
+    headers: [],
     children: [
-      _jsx(LumaToc, {
-        toc: JSON.parse("[]"),
-      }),
       void (globalThis[_rehypeKatexContext0] = ""),
       "\n",
       _jsx(_components.p, {

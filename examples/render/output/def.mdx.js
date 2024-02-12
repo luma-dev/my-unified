@@ -8,11 +8,10 @@ function _createMdxContent(props) {
       p: "p",
       ...props.components,
     },
-    { DefMapImp, LumaMdxLayout, LumaTerm, LumaToc } = _components;
+    { DefMapImp, LumaMdxLayout, LumaTerm } = _components;
   if (!DefMapImp) _missingMdxReference("DefMapImp", true);
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
   if (!LumaTerm) _missingMdxReference("LumaTerm", true);
-  if (!LumaToc) _missingMdxReference("LumaToc", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
       '{"data":{},"history":[],"messages":[],"value":"---\\ncreated: 2023-01-01\\nhistory:\\n  - 2023-01-02: 誤りを修正\\npublish: false\\nDefMapExp:\\nDefMapImp:\\n  逆元: 行列の逆元\\n---\\n\\n[@逆元]を考える．\\n[@行列の逆元]を考える．\\n[@逆操作]をする．\\n\\n[@]\\n\\n[これはリンク](https://example.com)だよ．\\n{/* 通常のリンクでは先頭の@をエスケープする必要がある */}\\n[\\\\@これもリンク](https://example.com)だよ．\\n区間 [ 1 , 2 ] を考える．\\n\\n{/* 以下のようにすると途中で定義を変えられる */}\\n\\n<DefMapImp 逆元=\\"群の逆元\\" />\\n\\n今度は[@群]について考える．\\n[@逆元]を考える．\\n"}',
@@ -21,10 +20,8 @@ function _createMdxContent(props) {
       '{"created":"2023-01-01","publish":false,"DefMapExp":null,"DefMapImp":{"逆元":"行列の逆元"}}',
     ),
     toc: JSON.parse("[]"),
+    headers: [],
     children: [
-      _jsx(LumaToc, {
-        toc: JSON.parse("[]"),
-      }),
       void (globalThis[_rehypeKatexContext0] = ""),
       "\n",
       _jsxs(_components.p, {

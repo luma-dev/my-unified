@@ -2,6 +2,8 @@ import type {
   MdxJsxFlowElement,
   MdxJsxFlowElementHast,
   MdxJsxAttribute,
+  MdxJsxTextElement,
+  MdxJsxTextElementHast,
 } from "mdast-util-mdx-jsx";
 export type Root = import("hast").Root;
 export type Tree = import("unist").Node;
@@ -13,7 +15,11 @@ export const isMdxJsxTextElement = () => {};
 export type Attr = MdxJsxFlowElement["attributes"][number];
 
 export const getAttrByName = (
-  node: MdxJsxFlowElement | MdxJsxFlowElementHast,
+  node:
+    | MdxJsxFlowElement
+    | MdxJsxFlowElementHast
+    | MdxJsxTextElement
+    | MdxJsxTextElementHast,
   name: MdxJsxAttribute["name"],
 ) => {
   return node.attributes.find(
@@ -22,7 +28,11 @@ export const getAttrByName = (
 };
 
 export const setAttr = (
-  node: MdxJsxFlowElement | MdxJsxFlowElementHast,
+  node:
+    | MdxJsxFlowElement
+    | MdxJsxFlowElementHast
+    | MdxJsxTextElement
+    | MdxJsxTextElementHast,
   name: MdxJsxAttribute["name"],
   value: MdxJsxAttribute["value"],
 ) => {
@@ -40,8 +50,28 @@ export const setAttr = (
   return newAttr;
 };
 
+export const deleteAttr = (
+  node:
+    | MdxJsxFlowElement
+    | MdxJsxFlowElementHast
+    | MdxJsxTextElement
+    | MdxJsxTextElementHast,
+  name: MdxJsxAttribute["name"],
+) => {
+  const index = node.attributes.findIndex(
+    (attr) => attr.type === "mdxJsxAttribute" && attr.name === name,
+  );
+  if (index !== -1) {
+    node.attributes.splice(index, 1);
+  }
+};
+
 export const ensureAttr = (
-  node: MdxJsxFlowElement | MdxJsxFlowElementHast,
+  node:
+    | MdxJsxFlowElement
+    | MdxJsxFlowElementHast
+    | MdxJsxTextElement
+    | MdxJsxTextElementHast,
   name: MdxJsxAttribute["name"],
   defaultValue: MdxJsxAttribute["value"],
 ) => {

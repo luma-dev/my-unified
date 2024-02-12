@@ -1,9 +1,12 @@
-import { toSlug } from "./lib/to-slug.js";
 import { STEP_OVER, visit } from "@luma-dev/unist-util-visit-fast";
-import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
-import type { Toc, TocHeading } from "./types.js";
 import type { ElementContent } from "hast";
+import { toEstree } from "hast-util-to-estree";
+import { toSlug } from "./lib/to-slug.js";
 import { myToText } from "./my-to-text.js";
+import type { Toc, TocHeading } from "./types.js";
+import { estreeArrayOf } from "./util/estree-array-of.js";
+import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
+import { addAttrForAll } from "./util/util-mdast-add-attr-for-all.js";
 
 type Root = import("hast").Root;
 
@@ -108,12 +111,7 @@ const rehypeAddSlug: RehypeAddSlugPlugin = () => {
 
     tree.children.unshift({
       type: "mdxJsxFlowElement",
-      children: headerComponents.map((e) => ({
-        type: "mdxJsxTextElement",
-        name: null,
-        attributes: [],
-        children: e,
-      })),
+      children: [],
       name: "LumaToc",
       attributes: [
         {
@@ -124,6 +122,50 @@ const rehypeAddSlug: RehypeAddSlugPlugin = () => {
             value: "",
             data: {
               estree: estreeJsonParseOf(toc),
+            },
+          },
+        },
+        {
+          name: "headers",
+          type: "mdxJsxAttribute",
+          value: {
+            type: "mdxJsxAttributeValueExpression",
+            value: "",
+            data: {
+              estree: estreeArrayOf(
+                headerComponents.map((e) => {
+                  const e2 = structuredClone(e);
+                  for (const c2 of e2) {
+                    addAttrForAll(c2, "luma:isInsideToc", true);
+                  }
+                  const estree = toEstree({
+                    type: "mdxJsxFlowElement",
+                    name: null,
+                    children: e2,
+                    attributes: [],
+                  });
+                  if (estree.body.length !== 1) {
+                    throw Object.assign(
+                      new Error(`UNREACHABLE: estree.body.length !== 1`),
+                      {
+                        estree,
+                      },
+                    );
+                  }
+                  const main = estree.body[0];
+                  if (main.type === "ExpressionStatement") {
+                    return main.expression;
+                  }
+                  throw Object.assign(
+                    new Error(
+                      `UNREACHABLE: estree.body[0].type !== "ExpressionStatement"`,
+                    ),
+                    {
+                      estree,
+                    },
+                  );
+                }),
+              ),
             },
           },
         },

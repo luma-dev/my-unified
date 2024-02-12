@@ -6,21 +6,18 @@ function _createMdxContent(props) {
       p: "p",
       ...props.components,
     },
-    { LumaKatex, LumaLoaded, LumaMdxLayout, LumaToc } = _components;
+    { LumaKatex, LumaLoaded, LumaMdxLayout } = _components;
   if (!LumaKatex) _missingMdxReference("LumaKatex", true);
   if (!LumaLoaded) _missingMdxReference("LumaLoaded", true);
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
-  if (!LumaToc) _missingMdxReference("LumaToc", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
       '{"data":{},"history":[],"messages":[],"value":"<Save>\\n```katex inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$]となる。\\n\\n---\\n\\n<Save $bar>\\n```katex inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$bar]となる。\\n\\n---\\n\\n```katex-save\\n  A=B\\n```\\n\\n定義は[$]となる。\\n\\n---\\n\\n```katex-save $foo inline\\n  A=B\\n```\\n\\n定義は[$foo]となる。\\n"}',
     ),
     meta: JSON.parse("null"),
     toc: JSON.parse("[]"),
+    headers: [],
     children: [
-      _jsx(LumaToc, {
-        toc: JSON.parse("[]"),
-      }),
       void (globalThis[_rehypeKatexContext0] = ""),
       "\n",
       "\n",
