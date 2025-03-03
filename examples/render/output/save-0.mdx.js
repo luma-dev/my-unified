@@ -28,6 +28,7 @@ function _createMdxContent(props) {
             byName: JSON.parse('""'),
             found: JSON.parse("true"),
             children: _jsx(LumaKatex, {
+              globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
               options: "inline",
@@ -47,6 +48,7 @@ function _createMdxContent(props) {
             byName: JSON.parse('"bar"'),
             found: JSON.parse("true"),
             children: _jsx(LumaKatex, {
+              globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
               options: "inline",
@@ -66,6 +68,7 @@ function _createMdxContent(props) {
             byName: JSON.parse('""'),
             found: JSON.parse("true"),
             children: _jsx(LumaKatex, {
+              globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
               options: true,
@@ -85,6 +88,7 @@ function _createMdxContent(props) {
             byName: JSON.parse('"foo"'),
             found: JSON.parse("true"),
             children: _jsx(LumaKatex, {
+              globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
               options: "$foo inline",

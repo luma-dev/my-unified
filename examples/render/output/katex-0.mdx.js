@@ -31,12 +31,14 @@ function _createMdxContent(props) {
         "\\def\\idmat{I} \\gdef\\Tr#1{\\operatorname{Tr}\\left[{#1}\\right]}"),
       "\n",
       _jsx(LumaKatex, {
+        globalContext: JSON.parse('""'),
         defContext: globalThis[_rehypeKatexContext0],
         content: "\\Tr \\idmat = 1",
         options: true,
       }),
       "\n",
       _jsx(LumaKatex, {
+        globalContext: JSON.parse('""'),
         defContext: globalThis[_rehypeKatexContext0],
         content: "1 + 1 = S(O) + S(O) = S(O + S(O)) = S(S(O))",
         options: "trans",
@@ -45,6 +47,7 @@ function _createMdxContent(props) {
       void (globalThis[_rehypeKatexContext0] = ""),
       "\n",
       _jsx(LumaKatex, {
+        globalContext: JSON.parse('""'),
         defContext: globalThis[_rehypeKatexContext0],
         content: "\\Tr \\idmat = 1",
         options: "{1,2,3} {1-2} lang=js",

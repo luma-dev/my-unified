@@ -19,6 +19,7 @@ import { estreePushCtx } from "./util/rehype-katex/estree-ctx-push.js";
 import { estreeCtxValue } from "./util/rehype-katex/estree-ctx-value.js";
 import type { Element } from "hast";
 import { getClasses } from "./util/get-classes.js";
+import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 
 type Root = import("hast").Root;
 
@@ -35,7 +36,7 @@ export interface MathTransform {
 }
 
 const expressionOfMdxJsxExpressionAttribute = (
-  attr: MdxJsxAttributeValueExpression,
+  attr: MdxJsxAttributeValueExpression
 ): Expression | null => {
   if (attr.data == null) return null;
   if (attr.data.estree == null) return null;
@@ -48,6 +49,7 @@ export type RehypeKatexPlugin = import("unified").Plugin<
   [
     | Readonly<{
         dynamicSuffix?: () => string;
+        context?: string;
       }>
     | undefined,
   ],
@@ -55,6 +57,7 @@ export type RehypeKatexPlugin = import("unified").Plugin<
 >;
 const rehypeKatex: RehypeKatexPlugin = ({
   dynamicSuffix = () => Math.random().toString(36).slice(2),
+  context = "",
 } = {}) => {
   return async (tree, file) => {
     const dynamicKeyName = `_rehypeKatexContext${dynamicSuffix()}`;
@@ -79,11 +82,11 @@ const rehypeKatex: RehypeKatexPlugin = ({
         data: {
           estree: estreeDeleteCtx(dynamicKeyName),
         },
-      },
+      }
     );
     visit(tree, (node) => {
       const expressionOfMdxJsxExpressionAttributeOrReport = (
-        attr: string | MdxJsxAttributeValueExpression | undefined | null,
+        attr: string | MdxJsxAttributeValueExpression | undefined | null
       ) => {
         if (typeof attr === "string" || attr == null) {
           return { ok: true as const, content: attr };
@@ -92,7 +95,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
           if (expression == null) {
             file.message(
               `Unreachable? Structure of MdxJsxExpressionAttribute is not expected`,
-              node,
+              node
             );
             return { ok: false };
           }
@@ -114,6 +117,17 @@ const rehypeKatex: RehypeKatexPlugin = ({
             type: "mdxJsxFlowElement",
             name: "LumaKatex",
             attributes: [
+              {
+                type: "mdxJsxAttribute",
+                name: "globalContext",
+                value: {
+                  type: "mdxJsxAttributeValueExpression",
+                  value: "",
+                  data: {
+                    estree: estreeJsonParseOf(context),
+                  },
+                },
+              },
               {
                 type: "mdxJsxAttribute",
                 name: "defContext",
@@ -138,7 +152,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
             ],
             children: [],
           } satisfies MdxJsxFlowElement,
-          STEP_OVER,
+          STEP_OVER
         );
       };
       const save = (content: MdxAttrValue, options: MdxAttrValue) => {
@@ -168,6 +182,17 @@ const rehypeKatex: RehypeKatexPlugin = ({
                 attributes: [
                   {
                     type: "mdxJsxAttribute",
+                    name: "globalContext",
+                    value: {
+                      type: "mdxJsxAttributeValueExpression",
+                      value: "",
+                      data: {
+                        estree: estreeJsonParseOf(context),
+                      },
+                    },
+                  },
+                  {
+                    type: "mdxJsxAttribute",
                     name: "defContext",
                     value: {
                       type: "mdxJsxAttributeValueExpression",
@@ -192,7 +217,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
               },
             ],
           } satisfies MdxJsxFlowElement,
-          STEP_OVER,
+          STEP_OVER
         );
       };
       const def = (expressionLike: string | null | Expression) => {
@@ -213,7 +238,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
               estree: estreePushCtx(dynamicKeyName, expression),
             },
           } satisfies MdxFlowExpressionHast,
-          STEP_OVER,
+          STEP_OVER
         );
       };
       const reset = () => {
@@ -225,7 +250,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
               estree: estreeResetCtx(dynamicKeyName),
             },
           } satisfies MdxFlowExpressionHast,
-          STEP_OVER,
+          STEP_OVER
         );
       };
 
@@ -273,12 +298,12 @@ const rehypeKatex: RehypeKatexPlugin = ({
             if (attr.type !== "mdxJsxAttribute") {
               file.message(
                 `Unreachable? KatexDef attribute _ is not mdxJsxAttribute`,
-                node,
+                node
               );
               return STEP_OVER;
             }
             const maybe = expressionOfMdxJsxExpressionAttributeOrReport(
-              attr.value,
+              attr.value
             );
             if (!maybe.ok) {
               return DELETE;

@@ -126,12 +126,14 @@ function _createMdxContent(props) {
       _jsxs(_components.p, {
         children: [
           _jsx(LumaKatex, {
+            globalContext: JSON.parse('""'),
             defContext: globalThis[_rehypeKatexContext0],
             content: "a+b",
             options: "math inline",
           }),
           " は ",
           _jsx(LumaKatex, {
+            globalContext: JSON.parse('""'),
             defContext: globalThis[_rehypeKatexContext0],
             content: "b+a",
             options: "math inline",
