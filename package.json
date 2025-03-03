@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@luma-dev/my-unified",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "files": [
     "dist"
@@ -65,6 +65,7 @@
   },
   "packageManager": "npm@10.3.0+sha256.ec92e7332e3f7aef6feb2b3c9585fde534cd56905cf26e77debc69e4e2b44892",
   "dependencies": {
+    "@luma-dev/option-ts": "npm:@jsr/luma-dev__option-ts@^1.1.0",
     "@luma-dev/unist-util-visit-fast": "^1.0.1",
     "hast-util-to-estree": "^3.1.0",
     "hast-util-to-text": "4",
