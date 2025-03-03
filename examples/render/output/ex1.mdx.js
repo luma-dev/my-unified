@@ -126,12 +126,14 @@ function _createMdxContent(props) {
       _jsxs(_components.p, {
         children: [
           _jsx(LumaKatex, {
+            globalContext: JSON.parse('""'),
             defContext: globalThis[_rehypeKatexContext0],
             content: "a+b",
             options: "math inline",
           }),
           " は ",
           _jsx(LumaKatex, {
+            globalContext: JSON.parse('""'),
             defContext: globalThis[_rehypeKatexContext0],
             content: "b+a",
             options: "math inline",
@@ -140,12 +142,12 @@ function _createMdxContent(props) {
         ],
       }),
       "\n",
-      _jsx(_components.pre, {
-        children: _jsx(_components.code, {
-          className: "language-math math-display",
-          children:
-            "\\begin{aligned}\n  a + b &= b + a \\\\\n  a \\times b &= b \\times a\n\\end{aligned}",
-        }),
+      _jsx(LumaKatex, {
+        globalContext: JSON.parse('""'),
+        defContext: globalThis[_rehypeKatexContext0],
+        content:
+          "\\begin{aligned} a + b &= b + a \\\\ a \\times b &= b \\times a \\end{aligned}",
+        options: true,
       }),
       (() => {
         delete globalThis[_rehypeKatexContext0];

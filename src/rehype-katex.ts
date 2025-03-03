@@ -19,6 +19,8 @@ import { estreePushCtx } from "./util/rehype-katex/estree-ctx-push.js";
 import { estreeCtxValue } from "./util/rehype-katex/estree-ctx-value.js";
 import type { Element } from "hast";
 import { getClasses } from "./util/get-classes.js";
+import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
+import { Option } from "@luma-dev/option-ts";
 
 type Root = import("hast").Root;
 
@@ -47,14 +49,18 @@ const expressionOfMdxJsxExpressionAttribute = (
 export type RehypeKatexPlugin = import("unified").Plugin<
   [
     | Readonly<{
+        languageDetection?: string;
         dynamicSuffix?: () => string;
+        context?: string;
       }>
     | undefined,
   ],
   Root
 >;
 const rehypeKatex: RehypeKatexPlugin = ({
+  languageDetection = "math",
   dynamicSuffix = () => Math.random().toString(36).slice(2),
+  context = "",
 } = {}) => {
   return async (tree, file) => {
     const dynamicKeyName = `_rehypeKatexContext${dynamicSuffix()}`;
@@ -116,6 +122,17 @@ const rehypeKatex: RehypeKatexPlugin = ({
             attributes: [
               {
                 type: "mdxJsxAttribute",
+                name: "globalContext",
+                value: {
+                  type: "mdxJsxAttributeValueExpression",
+                  value: "",
+                  data: {
+                    estree: estreeJsonParseOf(context),
+                  },
+                },
+              },
+              {
+                type: "mdxJsxAttribute",
                 name: "defContext",
                 value: {
                   type: "mdxJsxAttributeValueExpression",
@@ -166,6 +183,17 @@ const rehypeKatex: RehypeKatexPlugin = ({
                 type: "mdxJsxFlowElement",
                 name: "LumaKatex",
                 attributes: [
+                  {
+                    type: "mdxJsxAttribute",
+                    name: "globalContext",
+                    value: {
+                      type: "mdxJsxAttributeValueExpression",
+                      value: "",
+                      data: {
+                        estree: estreeJsonParseOf(context),
+                      },
+                    },
+                  },
                   {
                     type: "mdxJsxAttribute",
                     name: "defContext",
@@ -239,16 +267,21 @@ const rehypeKatex: RehypeKatexPlugin = ({
         const codeEl = node.children[0];
         const content = toText(codeEl.children[0], { whitespace: "pre" });
         const classes = getClasses(codeEl);
-        if (classes.includes("language-katex-def")) {
-          return def(content);
-        } else if (classes.includes("language-katex-save")) {
-          const meta = metaOfPreCode(codeEl);
-          return save(content, meta);
-        } else if (classes.includes("language-katex")) {
-          const meta = metaOfPreCode(codeEl);
-          return show(content, meta);
-        } else {
-          return STEP_OVER;
+        const languageClassPrefix = `language-${languageDetection}`;
+        const langKind = Option.fromNullish(
+          classes.find((e) => e.startsWith(languageClassPrefix)),
+        )
+          .map((e) => e.slice(languageClassPrefix.length))
+          .unwrapOr(null);
+        switch (langKind) {
+          case "":
+            return show(content, metaOfPreCode(codeEl));
+          case "!def":
+            return def(content);
+          case "!save":
+            return save(content, metaOfPreCode(codeEl));
+          default:
+            return STEP_OVER;
         }
       }
       if (node.type === "element") {

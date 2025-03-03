@@ -12,7 +12,7 @@ function _createMdxContent(props) {
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
-      '{"data":{},"history":[],"messages":[],"value":"<Save>\\n```katex inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$]となる。\\n\\n---\\n\\n<Save $bar>\\n```katex inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$bar]となる。\\n\\n---\\n\\n```katex-save\\n  A=B\\n```\\n\\n定義は[$]となる。\\n\\n---\\n\\n```katex-save $foo inline\\n  A=B\\n```\\n\\n定義は[$foo]となる。\\n"}',
+      '{"data":{},"history":[],"messages":[],"value":"<Save>\\n```math inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$]となる。\\n\\n---\\n\\n<Save $bar>\\n```math inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$bar]となる。\\n\\n---\\n\\n```math!save\\n  A=B\\n```\\n\\n定義は[$]となる。\\n\\n---\\n\\n```math!save $foo inline\\n  A=B\\n```\\n\\n定義は[$foo]となる。\\n"}',
     ),
     meta: JSON.parse("null"),
     toc: JSON.parse("[]"),
@@ -28,6 +28,7 @@ function _createMdxContent(props) {
             byName: JSON.parse('""'),
             found: JSON.parse("true"),
             children: _jsx(LumaKatex, {
+              globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
               options: "inline",
@@ -47,6 +48,7 @@ function _createMdxContent(props) {
             byName: JSON.parse('"bar"'),
             found: JSON.parse("true"),
             children: _jsx(LumaKatex, {
+              globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
               options: "inline",
@@ -66,6 +68,7 @@ function _createMdxContent(props) {
             byName: JSON.parse('""'),
             found: JSON.parse("true"),
             children: _jsx(LumaKatex, {
+              globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
               options: true,
@@ -85,6 +88,7 @@ function _createMdxContent(props) {
             byName: JSON.parse('"foo"'),
             found: JSON.parse("true"),
             children: _jsx(LumaKatex, {
+              globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
               options: "$foo inline",
