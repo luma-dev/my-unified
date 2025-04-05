@@ -10,12 +10,13 @@ function _createMdxContent(props) {
       p: "p",
       ...props.components,
     },
-    { LumaMdxLayout, Term } = _components;
+    { Foo, LumaMdxLayout, Term } = _components;
+  if (!Foo) _missingMdxReference("Foo", true);
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
   if (!Term) _missingMdxReference("Term", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
-      '{"data":{},"history":[],"messages":[],"value":"これは用語を展開するテストです。\\n通常の行。\\n\\n用語の定義をするよ。\\n\\n## タイトル内の用語も置き換えるよ\\n"}',
+      '{"data":{},"history":[],"messages":[],"value":"これは用語を展開するテストです。\\n通常の行。\\n\\n用語の定義をするよ。\\n\\n## タイトル内の用語も置き換えるよ\\n\\n<Foo a={1} />\\n"}',
     ),
     meta: JSON.parse("null"),
     toc: JSON.parse(
@@ -37,6 +38,7 @@ function _createMdxContent(props) {
           _jsx(Term, {
             text: "用語",
             reference: "用語",
+            refIndex: JSON.parse("0"),
           }),
           "を",
           "展",
@@ -63,11 +65,13 @@ function _createMdxContent(props) {
           _jsx(Term, {
             text: "用語",
             reference: "用語",
+            refIndex: JSON.parse("1"),
           }),
           "の",
           _jsx(Term, {
             text: "定義",
             reference: "定義",
+            refIndex: JSON.parse("0"),
           }),
           "を",
           "す",
@@ -89,6 +93,7 @@ function _createMdxContent(props) {
           _jsx(Term, {
             text: "用語",
             reference: "用語",
+            refIndex: JSON.parse("2"),
           }),
           "も",
           "置",
@@ -98,6 +103,10 @@ function _createMdxContent(props) {
           "る",
           "よ",
         ],
+      }),
+      "\n",
+      _jsx(Foo, {
+        a: 1,
       }),
       (() => {
         delete globalThis[_rehypeKatexContext0];

@@ -1,5 +1,6 @@
 import { visit, STEP_OVER } from "@luma-dev/unist-util-visit-fast";
 import { ElementContent } from "hast";
+import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 
 type Root = import("hast").Root;
 
@@ -29,6 +30,7 @@ export type RehypeProcTermPlugin = import("unified").Plugin<
 >;
 const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
   return (tree) => {
+    const refCount = new Map<string, number>();
     visit(tree, (node) => {
       if (node.type !== "element") return;
       if (
@@ -54,8 +56,9 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
                 value: parsed.text,
               });
               break;
-            case "term":
-              // TODO
+            case "term": {
+              const refIndex = refCount.get(parsed.term) ?? 0;
+              refCount.set(parsed.term, refIndex + 1);
               newChildren.push({
                 type: "mdxJsxFlowElement",
                 name: "Term",
@@ -66,10 +69,22 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
                     name: "reference",
                     value: parsed.term,
                   },
+                  {
+                    type: "mdxJsxAttribute",
+                    name: "refIndex",
+                    value: {
+                      type: "mdxJsxAttributeValueExpression",
+                      value: "",
+                      data: {
+                        estree: estreeJsonParseOf(refIndex),
+                      },
+                    },
+                  },
                 ],
                 children: [],
               });
               break;
+            }
             default:
               throw new Error(
                 `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`
