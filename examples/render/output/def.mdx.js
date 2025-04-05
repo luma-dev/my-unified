@@ -1,7 +1,12 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import {
+  Fragment as _Fragment,
+  jsx as _jsx,
+  jsxs as _jsxs,
+} from "react/jsx-runtime";
 const _rehypeKatexContext0 = Symbol();
 function _createMdxContent(props) {
   const _components = {
+      h2: "h2",
       p: "p",
       ...props.components,
     },
@@ -10,11 +15,17 @@ function _createMdxContent(props) {
   if (!Term) _missingMdxReference("Term", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
-      '{"data":{},"history":[],"messages":[],"value":"これは用語を展開するテストです。\\n通常の行。\\n\\n用語の定義をするよ。\\n"}',
+      '{"data":{},"history":[],"messages":[],"value":"これは用語を展開するテストです。\\n通常の行。\\n\\n用語の定義をするよ。\\n\\n## タイトル内の用語も置き換えるよ\\n"}',
     ),
     meta: JSON.parse("null"),
-    toc: JSON.parse("[]"),
-    headers: [],
+    toc: JSON.parse(
+      '[{"tag":"h2","index":0,"depth":1,"titleText":"タイトル内の用語も置き換えるよ","level":2,"slug":"タイトル内の用語も置き換えるよ","children":[]}]',
+    ),
+    headers: [
+      _jsx(_Fragment, {
+        children: "タイトル内の用語も置き換えるよ",
+      }),
+    ],
     children: [
       void (globalThis[_rehypeKatexContext0] = ""),
       "\n",
@@ -63,6 +74,29 @@ function _createMdxContent(props) {
           "る",
           "よ",
           "。",
+        ],
+      }),
+      "\n",
+      _jsxs(_components.h2, {
+        slug: "タイトル内の用語も置き換えるよ",
+        children: [
+          "タ",
+          "イ",
+          "ト",
+          "ル",
+          "内",
+          "の",
+          _jsx(Term, {
+            text: "用語",
+            reference: "用語",
+          }),
+          "も",
+          "置",
+          "き",
+          "換",
+          "え",
+          "る",
+          "よ",
         ],
       }),
       (() => {

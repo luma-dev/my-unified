@@ -1,6 +1,5 @@
 import { visit, STEP_OVER } from "@luma-dev/unist-util-visit-fast";
 import { ElementContent } from "hast";
-import util from "node:util";
 
 type Root = import("hast").Root;
 
