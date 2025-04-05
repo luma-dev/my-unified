@@ -1,114 +1,112 @@
-/*通常のリンクでは先頭の@をエスケープする必要がある*/
-/*以下のようにすると途中で定義を変えられる*/
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import {
+  Fragment as _Fragment,
+  jsx as _jsx,
+  jsxs as _jsxs,
+} from "react/jsx-runtime";
 const _rehypeKatexContext0 = Symbol();
 function _createMdxContent(props) {
   const _components = {
-      a: "a",
+      h2: "h2",
       p: "p",
       ...props.components,
     },
-    { DefMapImp, LumaMdxLayout, LumaTerm } = _components;
-  if (!DefMapImp) _missingMdxReference("DefMapImp", true);
+    { Foo, LumaMdxLayout, Term } = _components;
+  if (!Foo) _missingMdxReference("Foo", true);
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
-  if (!LumaTerm) _missingMdxReference("LumaTerm", true);
+  if (!Term) _missingMdxReference("Term", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
-      '{"data":{},"history":[],"messages":[],"value":"---\\ncreated: 2023-01-01\\nhistory:\\n  - 2023-01-02: 誤りを修正\\npublish: false\\nDefMapExp:\\nDefMapImp:\\n  逆元: 行列の逆元\\n---\\n\\n[@逆元]を考える．\\n[@行列の逆元]を考える．\\n[@逆操作]をする．\\n\\n[@]\\n\\n[これはリンク](https://example.com)だよ．\\n{/* 通常のリンクでは先頭の@をエスケープする必要がある */}\\n[\\\\@これもリンク](https://example.com)だよ．\\n区間 [ 1 , 2 ] を考える．\\n\\n{/* 以下のようにすると途中で定義を変えられる */}\\n\\n<DefMapImp 逆元=\\"群の逆元\\" />\\n\\n今度は[@群]について考える．\\n[@逆元]を考える．\\n"}',
+      '{"data":{},"history":[],"messages":[],"value":"これは用語を展開するテストです。\\n通常の行。\\n\\n用語の定義をするよ。\\n\\n## タイトル内の用語も置き換えるよ\\n\\n<Foo a={1} />\\n"}',
     ),
-    meta: JSON.parse(
-      '{"created":"2023-01-01","publish":false,"DefMapExp":null,"DefMapImp":{"逆元":"行列の逆元"}}',
+    meta: JSON.parse("null"),
+    toc: JSON.parse(
+      '[{"tag":"h2","index":0,"depth":1,"titleText":"タイトル内の用語も置き換えるよ","level":2,"slug":"タイトル内の用語も置き換えるよ","children":[]}]',
     ),
-    toc: JSON.parse("[]"),
-    headers: [],
+    headers: [
+      _jsx(_Fragment, {
+        children: "タイトル内の用語も置き換えるよ",
+      }),
+    ],
     children: [
       void (globalThis[_rehypeKatexContext0] = ""),
       "\n",
       _jsxs(_components.p, {
         children: [
-          _jsx(LumaTerm, {
-            rawTermRef: "逆元",
-            termRef: "行列の逆元",
-            gotBy: "imp",
-            indexInPage: JSON.parse("0"),
-            totalInPage: JSON.parse("2"),
+          "こ",
+          "れ",
+          "は",
+          _jsx(Term, {
+            text: "用語",
+            reference: "用語",
+            refIndex: JSON.parse("0"),
           }),
-          "を考える。\n",
-          _jsx(LumaTerm, {
-            rawTermRef: "行列の逆元",
-            termRef: "行列の逆元",
-            gotBy: "raw",
-            indexInPage: JSON.parse("1"),
-            totalInPage: JSON.parse("2"),
-          }),
-          "を考える。\n",
-          _jsx(LumaTerm, {
-            rawTermRef: "逆操作",
-            termRef: "逆操作",
-            gotBy: "raw",
-            indexInPage: JSON.parse("0"),
-            totalInPage: JSON.parse("1"),
-          }),
-          "をする。",
+          "を",
+          "展",
+          "開",
+          "す",
+          "る",
+          "テ",
+          "ス",
+          "ト",
+          "で",
+          "す",
+          "。",
+          "\n",
+          "通",
+          "常",
+          "の",
+          "行",
+          "。",
         ],
-      }),
-      "\n",
-      _jsx(_components.p, {
-        children: _jsx(LumaTerm, {
-          rawTermRef: "",
-          termRef: "",
-          gotBy: "raw",
-          indexInPage: JSON.parse("0"),
-          totalInPage: JSON.parse("1"),
-        }),
       }),
       "\n",
       _jsxs(_components.p, {
         children: [
-          _jsx(_components.a, {
-            href: "https://example.com",
-            children: "これはリンク",
+          _jsx(Term, {
+            text: "用語",
+            reference: "用語",
+            refIndex: JSON.parse("1"),
           }),
-          "だよ。",
+          "の",
+          _jsx(Term, {
+            text: "定義",
+            reference: "定義",
+            refIndex: JSON.parse("0"),
+          }),
+          "を",
+          "す",
+          "る",
+          "よ",
+          "。",
         ],
       }),
       "\n",
-      "\n",
-      _jsxs(_components.p, {
+      _jsxs(_components.h2, {
+        slug: "タイトル内の用語も置き換えるよ",
         children: [
-          _jsx(_components.a, {
-            href: "https://example.com",
-            children: "@これもリンク",
+          "タ",
+          "イ",
+          "ト",
+          "ル",
+          "内",
+          "の",
+          _jsx(Term, {
+            text: "用語",
+            reference: "用語",
+            refIndex: JSON.parse("2"),
           }),
-          "だよ。\n区間 [ 1 , 2 ] を考える。",
+          "も",
+          "置",
+          "き",
+          "換",
+          "え",
+          "る",
+          "よ",
         ],
       }),
       "\n",
-      "\n",
-      _jsx(DefMapImp, {
-        逆元: "群の逆元",
-      }),
-      "\n",
-      _jsxs(_components.p, {
-        children: [
-          "今度は",
-          _jsx(LumaTerm, {
-            rawTermRef: "群",
-            termRef: "群",
-            gotBy: "raw",
-            indexInPage: JSON.parse("0"),
-            totalInPage: JSON.parse("1"),
-          }),
-          "について考える。\n",
-          _jsx(LumaTerm, {
-            rawTermRef: "逆元",
-            termRef: "群の逆元",
-            gotBy: "imp",
-            indexInPage: JSON.parse("0"),
-            totalInPage: JSON.parse("1"),
-          }),
-          "を考える。",
-        ],
+      _jsx(Foo, {
+        a: 1,
       }),
       (() => {
         delete globalThis[_rehypeKatexContext0];

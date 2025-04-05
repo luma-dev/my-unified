@@ -17,6 +17,10 @@ import remarkTerm from "../src/remark-term.js";
 import remarkMeta from "../src/remark-meta.js";
 import rehypeSave from "../src/rehype-save.js";
 import rehypeCodeMeta from "../src/rehype-code-meta.js";
+import rehypeProcTerm, {
+  RehypeProcTermPluginParams,
+  TextPart,
+} from "../src/rehype-proc-term.js";
 import remarkMath from "remark-math";
 
 import prompt from "prompt";
@@ -62,6 +66,52 @@ const main = async () => {
 
           rehypeAddSlug,
           rehypeWrap,
+          [
+            rehypeProcTerm,
+            {
+              termProcessor: {
+                processText: (text) => {
+                  const ts: TextPart[] = [];
+                  for (let i = 0; i < text.length; ) {
+                    switch (text.slice(i, i + 2)) {
+                      case "用語":
+                        i += 2;
+                        ts.push({
+                          type: "term",
+                          term: "用語",
+                          text: "用語",
+                        });
+                        break;
+                      case "定義":
+                        i += 2;
+                        ts.push({
+                          type: "term",
+                          term: "定義",
+                          text: "定義",
+                        });
+                        break;
+                      default:
+                        ts.push({
+                          type: "text",
+                          text: text[i],
+                        });
+                        i += 1;
+                        break;
+                    }
+                  }
+                  if (ts.length === text.length) {
+                    return [
+                      {
+                        type: "text",
+                        text,
+                      },
+                    ];
+                  }
+                  return ts;
+                },
+              },
+            } satisfies RehypeProcTermPluginParams,
+          ],
 
           rehypeCleanInternal,
         ],
