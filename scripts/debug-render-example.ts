@@ -50,7 +50,7 @@ const main = async () => {
       if (path.extname(file) !== ".mdx") return;
       const outputJsPath = path.resolve(
         exampleOutDir,
-        path.basename(file) + ".js"
+        path.basename(file) + ".js",
       );
       const mdxContent = await fs.readFile(inputPath, {
         encoding: "utf-8",
@@ -130,7 +130,7 @@ const main = async () => {
       });
       await fs.mkdir(exampleOutDir, { recursive: true });
       await fs.writeFile(outputJsPath, formatted);
-    })
+    }),
   );
 };
 

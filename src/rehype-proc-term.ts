@@ -87,7 +87,7 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
             }
             default:
               throw new Error(
-                `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`
+                `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`,
               );
           }
         }
