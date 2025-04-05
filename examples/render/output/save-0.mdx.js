@@ -6,10 +6,11 @@ function _createMdxContent(props) {
       p: "p",
       ...props.components,
     },
-    { LumaKatex, LumaLoaded, LumaMdxLayout } = _components;
+    { LumaKatex, LumaLoaded, LumaMdxLayout, Term } = _components;
   if (!LumaKatex) _missingMdxReference("LumaKatex", true);
   if (!LumaLoaded) _missingMdxReference("LumaLoaded", true);
   if (!LumaMdxLayout) _missingMdxReference("LumaMdxLayout", true);
+  if (!Term) _missingMdxReference("Term", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
       '{"data":{},"history":[],"messages":[],"value":"<Save>\\n```math inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$]となる。\\n\\n---\\n\\n<Save $bar>\\n```math inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$bar]となる。\\n\\n---\\n\\n```math!save\\n  A=B\\n```\\n\\n定義は[$]となる。\\n\\n---\\n\\n```math!save $foo inline\\n  A=B\\n```\\n\\n定義は[$foo]となる。\\n"}',
@@ -23,7 +24,11 @@ function _createMdxContent(props) {
       "\n",
       _jsxs(_components.p, {
         children: [
-          "定義は",
+          _jsx(Term, {
+            text: "定義",
+            reference: "定義",
+          }),
+          "は",
           _jsx(LumaLoaded, {
             byName: JSON.parse('""'),
             found: JSON.parse("true"),
@@ -43,7 +48,11 @@ function _createMdxContent(props) {
       "\n",
       _jsxs(_components.p, {
         children: [
-          "定義は",
+          _jsx(Term, {
+            text: "定義",
+            reference: "定義",
+          }),
+          "は",
           _jsx(LumaLoaded, {
             byName: JSON.parse('"bar"'),
             found: JSON.parse("true"),
@@ -63,7 +72,11 @@ function _createMdxContent(props) {
       "\n",
       _jsxs(_components.p, {
         children: [
-          "定義は",
+          _jsx(Term, {
+            text: "定義",
+            reference: "定義",
+          }),
+          "は",
           _jsx(LumaLoaded, {
             byName: JSON.parse('""'),
             found: JSON.parse("true"),
@@ -83,7 +96,11 @@ function _createMdxContent(props) {
       "\n",
       _jsxs(_components.p, {
         children: [
-          "定義は",
+          _jsx(Term, {
+            text: "定義",
+            reference: "定義",
+          }),
+          "は",
           _jsx(LumaLoaded, {
             byName: JSON.parse('"foo"'),
             found: JSON.parse("true"),
