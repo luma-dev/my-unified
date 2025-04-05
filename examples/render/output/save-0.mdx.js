@@ -27,6 +27,7 @@ function _createMdxContent(props) {
           _jsx(Term, {
             text: "定義",
             reference: "定義",
+            refIndex: JSON.parse("0"),
           }),
           "は",
           _jsx(LumaLoaded, {
@@ -51,6 +52,7 @@ function _createMdxContent(props) {
           _jsx(Term, {
             text: "定義",
             reference: "定義",
+            refIndex: JSON.parse("1"),
           }),
           "は",
           _jsx(LumaLoaded, {
@@ -75,6 +77,7 @@ function _createMdxContent(props) {
           _jsx(Term, {
             text: "定義",
             reference: "定義",
+            refIndex: JSON.parse("2"),
           }),
           "は",
           _jsx(LumaLoaded, {
@@ -99,6 +102,7 @@ function _createMdxContent(props) {
           _jsx(Term, {
             text: "定義",
             reference: "定義",
+            refIndex: JSON.parse("3"),
           }),
           "は",
           _jsx(LumaLoaded, {
