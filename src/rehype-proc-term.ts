@@ -1,4 +1,4 @@
-import { visit, STEP_OVER } from "@luma-dev/unist-util-visit-fast";
+import { STEP_OVER, visitAsync } from "@luma-dev/unist-util-visit-fast";
 import { ElementContent } from "hast";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 
@@ -17,7 +17,9 @@ export type TextPart = TextPartText | TextPartTerm;
 export type TextProcessed = readonly TextPart[];
 
 export type TermProcessorProtocol = {
-  readonly processText: (text: string) => TextProcessed;
+  readonly processText: (
+    text: string
+  ) => TextProcessed | Promise<TextProcessed>;
 };
 
 export type RehypeProcTermPluginParams = {
@@ -29,9 +31,9 @@ export type RehypeProcTermPlugin = import("unified").Plugin<
   Root
 >;
 const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
-  return (tree) => {
+  return async (tree) => {
     const refCount = new Map<string, number>();
-    visit(tree, (node) => {
+    await visitAsync(tree, async (node) => {
       if (node.type !== "element") return;
       if (
         node.tagName === "pre" ||
@@ -47,7 +49,7 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
           continue;
         }
         const text = child.value;
-        const processed = termProcessor.processText(text);
+        const processed = await termProcessor.processText(text);
         for (const parsed of processed) {
           switch (parsed.type) {
             case "text":
@@ -87,7 +89,7 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
             }
             default:
               throw new Error(
-                `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`,
+                `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`
               );
           }
         }
