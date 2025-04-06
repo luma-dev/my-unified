@@ -20,6 +20,7 @@ export type TermProcessorProtocol = {
   readonly processText: (
     text: string,
   ) => TextProcessed | Promise<TextProcessed>;
+  [Symbol.dispose]?: () => void;
 };
 
 export type RehypeProcTermPluginParams = {
@@ -99,6 +100,7 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
 
       return STEP_OVER;
     });
+    termProcessor[Symbol.dispose]?.();
   };
 };
 
