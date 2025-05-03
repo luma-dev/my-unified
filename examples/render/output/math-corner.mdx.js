@@ -23,7 +23,9 @@ function _createMdxContent(props) {
           globalContext: JSON.parse('""'),
           defContext: globalThis[_rehypeKatexContext0],
           content: "ab\\}c",
-          options: "math inline",
+          meta: JSON.parse(
+            '{"category":"show","mode":"inline","subCategory":"normal"}',
+          ),
         }),
       }),
       (() => {
