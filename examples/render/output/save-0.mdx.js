@@ -13,7 +13,7 @@ function _createMdxContent(props) {
   if (!Term) _missingMdxReference("Term", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
-      '{"data":{},"history":[],"messages":[],"value":"<Save>\\n```math inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$]となる。\\n\\n---\\n\\n<Save $bar>\\n```math inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$bar]となる。\\n\\n---\\n\\n```math!save\\n  A=B\\n```\\n\\n定義は[$]となる。\\n\\n---\\n\\n```math!save $foo inline\\n  A=B\\n```\\n\\n定義は[$foo]となる。\\n"}',
+      '{"data":{},"history":[],"messages":[],"value":"<Save>\\n```math inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$]となる。\\n\\n---\\n\\n<Save $bar>\\n```math inline\\nA=B\\n```\\n</Save>\\n\\n定義は[$bar]となる。\\n\\n---\\n\\n```math $\\n  A=B\\n```\\n\\n定義は[$]となる。\\n\\n---\\n\\n```math $foo inline\\n  A=B\\n```\\n\\n定義は[$foo]となる。\\n"}',
     ),
     meta: JSON.parse("null"),
     toc: JSON.parse("[]"),
@@ -37,7 +37,9 @@ function _createMdxContent(props) {
               globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
-              options: "inline",
+              meta: JSON.parse(
+                '{"category":"show","mode":"inline","subCategory":"normal"}',
+              ),
             }),
           }),
           "となる。",
@@ -62,7 +64,9 @@ function _createMdxContent(props) {
               globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
-              options: "inline",
+              meta: JSON.parse(
+                '{"category":"show","mode":"inline","subCategory":"normal"}',
+              ),
             }),
           }),
           "となる。",
@@ -87,7 +91,9 @@ function _createMdxContent(props) {
               globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
-              options: true,
+              meta: JSON.parse(
+                '{"category":"save","saveName":"","saved":{"category":"show","mode":"display","subCategory":"normal"}}',
+              ),
             }),
           }),
           "となる。",
@@ -112,7 +118,9 @@ function _createMdxContent(props) {
               globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B",
-              options: "$foo inline",
+              meta: JSON.parse(
+                '{"category":"save","saveName":"foo","saved":{"category":"show","mode":"inline","subCategory":"normal"}}',
+              ),
             }),
           }),
           "となる。",

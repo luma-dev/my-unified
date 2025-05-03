@@ -11,7 +11,6 @@ import {
   visit,
 } from "@luma-dev/unist-util-visit-fast";
 import { toText } from "hast-util-to-text";
-import { getAttrByName } from "./util/util-mdast.js";
 import { estreeDeclareSymbol } from "./util/rehype-katex/estree-declare-symbol.js";
 import { estreeResetCtx } from "./util/rehype-katex/estree-ctx-reset.js";
 import { estreeDeleteCtx } from "./util/rehype-katex/estree-ctx-delete.js";
@@ -21,21 +20,22 @@ import type { Element } from "hast";
 import { getClasses } from "./util/get-classes.js";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 import { Option } from "@luma-dev/option-ts";
+import {
+  KatexLumaMeta,
+  KatexLumaMetaSave,
+  parseMeta,
+} from "./katex-ex/parse-meta.js";
+import { getAttrByName } from "./util/util-mdast.js";
+
+type MdxJsxAttributeValue =
+  | string
+  | MdxJsxAttributeValueExpression
+  | null
+  | undefined;
 
 type Root = import("hast").Root;
 
-export interface MathTransformStep {
-  formula: string;
-  prefix: string;
-  description?: string;
-  descIsText?: boolean;
-}
-
-export interface MathTransform {
-  first: string;
-  steps: MathTransformStep[];
-}
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO
 const expressionOfMdxJsxExpressionAttribute = (
   attr: MdxJsxAttributeValueExpression,
 ): Expression | null => {
@@ -62,6 +62,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
   dynamicSuffix = () => Math.random().toString(36).slice(2),
   context = "",
 } = {}) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO
   return async (tree, file) => {
     const dynamicKeyName = `_rehypeKatexContext${dynamicSuffix()}`;
     tree.children.unshift({
@@ -106,15 +107,14 @@ const rehypeKatex: RehypeKatexPlugin = ({
         }
       };
 
-      const metaOfPreCode = (codeEl: Element): string | null => {
-        if (codeEl.data == null) return null;
+      const metaOfPreCode = (codeEl: Element): Option<string> => {
+        if (codeEl.data == null) return Option.none();
         if (!("meta" in codeEl.data) || typeof codeEl.data.meta !== "string")
-          return null;
-        return codeEl.data.meta;
+          return Option.none();
+        return Option.from(codeEl.data.meta);
       };
 
-      type MdxAttrValue = MdxJsxFlowElement["attributes"][number]["value"];
-      const show = (content: MdxAttrValue, options: MdxAttrValue) => {
+      const show = (content: MdxJsxAttributeValue, meta: KatexLumaMeta) => {
         return REPLACE(
           {
             type: "mdxJsxFlowElement",
@@ -149,8 +149,14 @@ const rehypeKatex: RehypeKatexPlugin = ({
               },
               {
                 type: "mdxJsxAttribute",
-                name: "options",
-                value: options,
+                name: "meta",
+                value: {
+                  type: "mdxJsxAttributeValueExpression",
+                  value: "",
+                  data: {
+                    estree: estreeJsonParseOf(meta),
+                  },
+                },
               },
             ],
             children: [],
@@ -158,16 +164,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
           STEP_OVER,
         );
       };
-      const save = (content: MdxAttrValue, options: MdxAttrValue) => {
-        let name = "";
-        if (typeof options === "string") {
-          name =
-            options
-              .trim()
-              .split(/\s+/)
-              .find((e) => e.startsWith("$"))
-              ?.slice(1) ?? "";
-        }
+      const save = (content: MdxJsxAttributeValue, meta: KatexLumaMetaSave) => {
         return REPLACE(
           {
             type: "mdxJsxFlowElement",
@@ -175,7 +172,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
             attributes: [
               {
                 type: "mdxJsxAttribute",
-                name: "$" + name,
+                name: "$" + meta.saveName,
               },
             ],
             children: [
@@ -212,8 +209,14 @@ const rehypeKatex: RehypeKatexPlugin = ({
                   },
                   {
                     type: "mdxJsxAttribute",
-                    name: "options",
-                    value: options,
+                    name: "meta",
+                    value: {
+                      type: "mdxJsxAttributeValueExpression",
+                      value: "",
+                      data: {
+                        estree: estreeJsonParseOf(meta),
+                      },
+                    },
                   },
                 ],
                 children: [],
@@ -268,35 +271,54 @@ const rehypeKatex: RehypeKatexPlugin = ({
         const content = toText(codeEl.children[0], { whitespace: "pre" });
         const classes = getClasses(codeEl);
         const languageClassPrefix = `language-${languageDetection}`;
-        const langKind = Option.fromNullish(
-          classes.find((e) => e.startsWith(languageClassPrefix)),
-        )
-          .map((e) => e.slice(languageClassPrefix.length))
-          .unwrapOr(null);
-        switch (langKind) {
-          case "":
-            return show(content, metaOfPreCode(codeEl));
-          case "!def":
+        if (!classes.includes(languageClassPrefix)) return;
+        const meta = parseMeta(metaOfPreCode(codeEl).unwrapOr(""));
+        switch (meta.category) {
+          case "show":
+            return show(content, meta);
+          case "def":
             return def(content);
-          case "!save":
-            return save(content, metaOfPreCode(codeEl));
+          case "save":
+            return save(content, meta);
           default:
             return STEP_OVER;
         }
       }
-      if (node.type === "element") {
+
+      if (
+        node.type === "element" &&
+        node.tagName === "code" &&
+        node.children?.length === 1
+      ) {
+        // $a+b$ のようなインラインスタイルの場合
         const classes = getClasses(node);
-        const inline = classes.includes("math-inline");
-        const displayMode = classes.includes("math-display");
-        const content = toText(node, { whitespace: "pre" });
-        if (!inline && !displayMode) return;
-        return show(content, inline ? "math inline" : "math block");
+        const child = node.children[0];
+        if (child.type !== "text") return;
+        if (!classes.includes("language-math")) return;
+        if (!classes.includes("math-inline")) return;
+
+        const content = child.value;
+        return show(content, {
+          category: "show",
+          mode: "inline",
+          subCategory: "normal",
+        });
       }
+      // TODO: これなんだっけ、Jupyterだっけ？
+      // if (node.type === "element") {
+      //   const classes = getClasses(node);
+      //   const inline = classes.includes("math-inline");
+      //   const displayMode = classes.includes("math-display");
+      //   const content = toText(node, { whitespace: "pre" });
+      //   if (!inline && !displayMode) return;
+      //   return show(content, inline ? "math inline" : "math block");
+      // }
       if (node.type === "mdxJsxFlowElement") {
         switch (node.name) {
           case "KatexReset": {
             return reset();
           }
+          // TODO: このへん必要なのだっけ。
           case "KatexDef": {
             const attr = getAttrByName(node, "_");
             if (attr == null) {
@@ -316,21 +338,20 @@ const rehypeKatex: RehypeKatexPlugin = ({
             if (!maybe.ok) {
               return DELETE;
             }
-
             return def(maybe.content ?? null);
           }
-          case "Katex": {
-            const attr = getAttrByName(node, "_");
-            if (attr == null) return DELETE;
-            if (attr.type !== "mdxJsxAttribute") return DELETE;
-            const metaAttr = (() => {
-              const attr = getAttrByName(node, "meta");
-              if (attr == null) return null;
-              if (attr.type !== "mdxJsxAttribute") return null;
-              return attr.value;
-            })();
-            return show(attr.value, metaAttr);
-          }
+          // case "Katex": {
+          //   const attr = getAttrByName(node, "_");
+          //   if (attr == null) return DELETE;
+          //   if (attr.type !== "mdxJsxAttribute") return DELETE;
+          //   const metaAttr = (() => {
+          //     const attr = getAttrByName(node, "meta");
+          //     if (attr == null) return null;
+          //     if (attr.type !== "mdxJsxAttribute") return null;
+          //     return attr.value;
+          //   })();
+          //   return show(attr.value, metaAttr);
+          // }
           default:
             return;
         }

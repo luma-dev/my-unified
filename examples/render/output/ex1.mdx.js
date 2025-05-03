@@ -129,14 +129,18 @@ function _createMdxContent(props) {
             globalContext: JSON.parse('""'),
             defContext: globalThis[_rehypeKatexContext0],
             content: "a+b",
-            options: "math inline",
+            meta: JSON.parse(
+              '{"category":"show","mode":"inline","subCategory":"normal"}',
+            ),
           }),
           " は ",
           _jsx(LumaKatex, {
             globalContext: JSON.parse('""'),
             defContext: globalThis[_rehypeKatexContext0],
             content: "b+a",
-            options: "math inline",
+            meta: JSON.parse(
+              '{"category":"show","mode":"inline","subCategory":"normal"}',
+            ),
           }),
           " と等しい。",
         ],
@@ -147,7 +151,9 @@ function _createMdxContent(props) {
         defContext: globalThis[_rehypeKatexContext0],
         content:
           "\\begin{aligned} a + b &= b + a \\\\ a \\times b &= b \\times a \\end{aligned}",
-        options: true,
+        meta: JSON.parse(
+          '{"category":"show","mode":"display","subCategory":"normal"}',
+        ),
       }),
       (() => {
         delete globalThis[_rehypeKatexContext0];
