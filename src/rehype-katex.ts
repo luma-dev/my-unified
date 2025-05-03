@@ -4,14 +4,8 @@ import type {
 } from "mdast-util-mdx-jsx";
 import type { MdxFlowExpressionHast } from "mdast-util-mdx-expression";
 import type { Expression } from "estree";
-import {
-  DELETE,
-  REPLACE,
-  STEP_OVER,
-  visit,
-} from "@luma-dev/unist-util-visit-fast";
+import { REPLACE, STEP_OVER, visit } from "@luma-dev/unist-util-visit-fast";
 import { toText } from "hast-util-to-text";
-import { getAttrByName } from "./util/util-mdast.js";
 import { estreeDeclareSymbol } from "./util/rehype-katex/estree-declare-symbol.js";
 import { estreeResetCtx } from "./util/rehype-katex/estree-ctx-reset.js";
 import { estreeDeleteCtx } from "./util/rehype-katex/estree-ctx-delete.js";
@@ -21,9 +15,21 @@ import type { Element } from "hast";
 import { getClasses } from "./util/get-classes.js";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 import { Option } from "@luma-dev/option-ts";
+import {
+  KatexLumaMeta,
+  KatexLumaMetaSave,
+  parseMeta,
+} from "./katex-ex/parse-meta.js";
+
+type MdxJsxAttributeValue =
+  | string
+  | MdxJsxAttributeValueExpression
+  | null
+  | undefined;
 
 type Root = import("hast").Root;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO
 const expressionOfMdxJsxExpressionAttribute = (
   attr: MdxJsxAttributeValueExpression
 ): Expression | null => {
@@ -50,6 +56,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
   dynamicSuffix = () => Math.random().toString(36).slice(2),
   context = "",
 } = {}) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO
   return async (tree, file) => {
     const dynamicKeyName = `_rehypeKatexContext${dynamicSuffix()}`;
     tree.children.unshift({
@@ -76,23 +83,23 @@ const rehypeKatex: RehypeKatexPlugin = ({
       }
     );
     visit(tree, (node) => {
-      const expressionOfMdxJsxExpressionAttributeOrReport = (
-        attr: string | MdxJsxAttributeValueExpression | undefined | null
-      ) => {
-        if (typeof attr === "string" || attr == null) {
-          return { ok: true as const, content: attr };
-        } else {
-          const expression = expressionOfMdxJsxExpressionAttribute(attr);
-          if (expression == null) {
-            file.message(
-              `Unreachable? Structure of MdxJsxExpressionAttribute is not expected`,
-              node
-            );
-            return { ok: false };
-          }
-          return { ok: true, content: expression };
-        }
-      };
+      // const expressionOfMdxJsxExpressionAttributeOrReport = (
+      //   attr: string | MdxJsxAttributeValueExpression | undefined | null
+      // ) => {
+      //   if (typeof attr === "string" || attr == null) {
+      //     return { ok: true as const, content: attr };
+      //   } else {
+      //     const expression = expressionOfMdxJsxExpressionAttribute(attr);
+      //     if (expression == null) {
+      //       file.message(
+      //         `Unreachable? Structure of MdxJsxExpressionAttribute is not expected`,
+      //         node
+      //       );
+      //       return { ok: false };
+      //     }
+      //     return { ok: true, content: expression };
+      //   }
+      // };
 
       const metaOfPreCode = (codeEl: Element): Option<string> => {
         if (codeEl.data == null) return Option.none();
@@ -101,8 +108,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
         return Option.from(codeEl.data.meta);
       };
 
-      type MdxAttrValue = MdxJsxFlowElement["attributes"][number]["value"];
-      const show = (content: MdxAttrValue, options: MdxAttrValue) => {
+      const show = (content: MdxJsxAttributeValue, meta: KatexLumaMeta) => {
         return REPLACE(
           {
             type: "mdxJsxFlowElement",
@@ -137,8 +143,14 @@ const rehypeKatex: RehypeKatexPlugin = ({
               },
               {
                 type: "mdxJsxAttribute",
-                name: "options",
-                value: options,
+                name: "meta",
+                value: {
+                  type: "mdxJsxAttributeValueExpression",
+                  value: "",
+                  data: {
+                    estree: estreeJsonParseOf(meta),
+                  },
+                },
               },
             ],
             children: [],
@@ -146,16 +158,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
           STEP_OVER
         );
       };
-      const save = (content: MdxAttrValue, options: MdxAttrValue) => {
-        let name = "";
-        if (typeof options === "string") {
-          name =
-            options
-              .trim()
-              .split(/\s+/)
-              .find((e) => e.startsWith("$"))
-              ?.slice(1) ?? "";
-        }
+      const save = (content: MdxJsxAttributeValue, meta: KatexLumaMetaSave) => {
         return REPLACE(
           {
             type: "mdxJsxFlowElement",
@@ -163,7 +166,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
             attributes: [
               {
                 type: "mdxJsxAttribute",
-                name: "$" + name,
+                name: "$" + meta.saveName,
               },
             ],
             children: [
@@ -200,8 +203,14 @@ const rehypeKatex: RehypeKatexPlugin = ({
                   },
                   {
                     type: "mdxJsxAttribute",
-                    name: "options",
-                    value: options,
+                    name: "meta",
+                    value: {
+                      type: "mdxJsxAttributeValueExpression",
+                      value: "",
+                      data: {
+                        estree: estreeJsonParseOf(meta),
+                      },
+                    },
                   },
                 ],
                 children: [],
@@ -257,65 +266,67 @@ const rehypeKatex: RehypeKatexPlugin = ({
         const classes = getClasses(codeEl);
         const languageClassPrefix = `language-${languageDetection}`;
         if (!classes.includes(languageClassPrefix)) return;
-        const meta = metaOfPreCode(codeEl);
-        switch (langKind) {
-          case "":
-            return show(content, metaOfPreCode(codeEl));
-          case "!def":
+        const meta = parseMeta(metaOfPreCode(codeEl).unwrapOr(""));
+        switch (meta.category) {
+          case "show":
+            return show(content, meta);
+          case "def":
             return def(content);
-          case "!save":
-            return save(content, metaOfPreCode(codeEl));
+          case "save":
+            return save(content, meta);
           default:
             return STEP_OVER;
         }
       }
-      if (node.type === "element") {
-        const classes = getClasses(node);
-        const inline = classes.includes("math-inline");
-        const displayMode = classes.includes("math-display");
-        const content = toText(node, { whitespace: "pre" });
-        if (!inline && !displayMode) return;
-        return show(content, inline ? "math inline" : "math block");
-      }
+      // TODO: これなんだっけ、Jupyterだっけ？
+      // if (node.type === "element") {
+      //   const classes = getClasses(node);
+      //   const inline = classes.includes("math-inline");
+      //   const displayMode = classes.includes("math-display");
+      //   const content = toText(node, { whitespace: "pre" });
+      //   if (!inline && !displayMode) return;
+      //   return show(content, inline ? "math inline" : "math block");
+      // }
       if (node.type === "mdxJsxFlowElement") {
         switch (node.name) {
           case "KatexReset": {
             return reset();
           }
-          case "KatexDef": {
-            const attr = getAttrByName(node, "_");
-            if (attr == null) {
-              file.message(`KatexDef must have _ attribute`, node);
-              return STEP_OVER;
-            }
-            if (attr.type !== "mdxJsxAttribute") {
-              file.message(
-                `Unreachable? KatexDef attribute _ is not mdxJsxAttribute`,
-                node
-              );
-              return STEP_OVER;
-            }
-            const maybe = expressionOfMdxJsxExpressionAttributeOrReport(
-              attr.value
-            );
-            if (!maybe.ok) {
-              return DELETE;
-            }
-
-            return def(maybe.content ?? null);
-          }
-          case "Katex": {
-            const attr = getAttrByName(node, "_");
-            if (attr == null) return DELETE;
-            if (attr.type !== "mdxJsxAttribute") return DELETE;
-            const metaAttr = (() => {
-              const attr = getAttrByName(node, "meta");
-              if (attr == null) return null;
-              if (attr.type !== "mdxJsxAttribute") return null;
-              return attr.value;
-            })();
-            return show(attr.value, metaAttr);
-          }
+          // TODO: このへん必要なのだっけ。
+          // case "KatexDef": {
+          //   const attr = getAttrByName(node, "_");
+          //   if (attr == null) {
+          //     file.message(`KatexDef must have _ attribute`, node);
+          //     return STEP_OVER;
+          //   }
+          //   if (attr.type !== "mdxJsxAttribute") {
+          //     file.message(
+          //       `Unreachable? KatexDef attribute _ is not mdxJsxAttribute`,
+          //       node
+          //     );
+          //     return STEP_OVER;
+          //   }
+          //   const maybe = expressionOfMdxJsxExpressionAttributeOrReport(
+          //     attr.value
+          //   );
+          //   if (!maybe.ok) {
+          //     return DELETE;
+          //   }
+          //
+          //   return def(maybe.content ?? null);
+          // }
+          // case "Katex": {
+          //   const attr = getAttrByName(node, "_");
+          //   if (attr == null) return DELETE;
+          //   if (attr.type !== "mdxJsxAttribute") return DELETE;
+          //   const metaAttr = (() => {
+          //     const attr = getAttrByName(node, "meta");
+          //     if (attr == null) return null;
+          //     if (attr.type !== "mdxJsxAttribute") return null;
+          //     return attr.value;
+          //   })();
+          //   return show(attr.value, metaAttr);
+          // }
           default:
             return;
         }
