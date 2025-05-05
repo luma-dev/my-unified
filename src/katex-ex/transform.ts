@@ -11,7 +11,7 @@ export type MathTransform = {
 };
 
 export const parseMathTransform = (v: string): MathTransform => {
-  const lines = v.split("\n");
+  const lines = v.split("\n").filter((e) => !e.match(/^\s*%/));
   const spaces = Math.min(
     ...lines
       .filter((e) => !e.match(/^\s*$/))

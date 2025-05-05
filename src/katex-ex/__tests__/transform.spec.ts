@@ -34,6 +34,34 @@ describe("parseMathTransform", () => {
       }
     `);
   });
+
+  it("comment", () => {
+    expect(
+      parseMathTransform(
+        ["x", "= x^2", "~ x^3", "% comment", "- x^4", "   % comment2"].join(
+          "\n",
+        ),
+      ),
+    ).toMatchInlineSnapshot(`
+      {
+        "first": "x",
+        "steps": [
+          {
+            "formula": "x^2",
+            "prefix": "= ",
+          },
+          {
+            "formula": "x^3",
+            "prefix": "\\sim ",
+          },
+          {
+            "formula": "x^4",
+            "prefix": "\\iff ",
+          },
+        ],
+      }
+    `);
+  });
 });
 
 describe("makeMathTransform1Column", () => {
