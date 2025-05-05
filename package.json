@@ -18,7 +18,7 @@
     "./rehype-code-meta": "./dist/rehype-code-meta.js",
     "./rehype-replace-text": "./dist/rehype-replace-text.js",
     "./rehype-counter": "./dist/rehype-counter.js",
-    "./katex-ex/parse-meta": "./dist/katex-ex/parse-meta.js",
+    "./katex-ex": "./dist/katex-ex.js",
     "./types": "./dist/types.js"
   },
   "scripts": {
