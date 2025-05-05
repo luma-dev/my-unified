@@ -37,7 +37,7 @@ type Root = import("hast").Root;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO
 const expressionOfMdxJsxExpressionAttribute = (
-  attr: MdxJsxAttributeValueExpression,
+  attr: MdxJsxAttributeValueExpression
 ): Expression | null => {
   if (attr.data == null) return null;
   if (attr.data.estree == null) return null;
@@ -86,11 +86,11 @@ const rehypeKatex: RehypeKatexPlugin = ({
         data: {
           estree: estreeDeleteCtx(dynamicKeyName),
         },
-      },
+      }
     );
     visit(tree, (node) => {
       const expressionOfMdxJsxExpressionAttributeOrReport = (
-        attr: string | MdxJsxAttributeValueExpression | undefined | null,
+        attr: string | MdxJsxAttributeValueExpression | undefined | null
       ) => {
         if (typeof attr === "string" || attr == null) {
           return { ok: true as const, content: attr };
@@ -99,7 +99,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
           if (expression == null) {
             file.message(
               `Unreachable? Structure of MdxJsxExpressionAttribute is not expected`,
-              node,
+              node
             );
             return { ok: false };
           }
@@ -161,7 +161,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
             ],
             children: [],
           } satisfies MdxJsxFlowElement,
-          STEP_OVER,
+          STEP_OVER
         );
       };
       const save = (content: MdxJsxAttributeValue, meta: KatexLumaMetaSave) => {
@@ -223,7 +223,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
               },
             ],
           } satisfies MdxJsxFlowElement,
-          STEP_OVER,
+          STEP_OVER
         );
       };
       const def = (expressionLike: string | null | Expression) => {
@@ -244,7 +244,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
               estree: estreePushCtx(dynamicKeyName, expression),
             },
           } satisfies MdxFlowExpressionHast,
-          STEP_OVER,
+          STEP_OVER
         );
       };
       const reset = () => {
@@ -256,7 +256,7 @@ const rehypeKatex: RehypeKatexPlugin = ({
               estree: estreeResetCtx(dynamicKeyName),
             },
           } satisfies MdxFlowExpressionHast,
-          STEP_OVER,
+          STEP_OVER
         );
       };
 
@@ -268,7 +268,11 @@ const rehypeKatex: RehypeKatexPlugin = ({
         node.children[0].tagName === "code"
       ) {
         const codeEl = node.children[0];
-        const content = toText(codeEl.children[0], { whitespace: "pre" });
+        const codeTextEl = codeEl.children[0];
+        const content =
+          codeTextEl.type === "text"
+            ? codeTextEl.value
+            : toText(codeTextEl, { whitespace: "nowrap" });
         const classes = getClasses(codeEl);
         const languageClassPrefix = `language-${languageDetection}`;
         if (!classes.includes(languageClassPrefix)) return;
@@ -328,12 +332,12 @@ const rehypeKatex: RehypeKatexPlugin = ({
             if (attr.type !== "mdxJsxAttribute") {
               file.message(
                 `Unreachable? KatexDef attribute _ is not mdxJsxAttribute`,
-                node,
+                node
               );
               return STEP_OVER;
             }
             const maybe = expressionOfMdxJsxExpressionAttributeOrReport(
-              attr.value,
+              attr.value
             );
             if (!maybe.ok) {
               return DELETE;

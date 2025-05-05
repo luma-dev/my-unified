@@ -36,7 +36,7 @@ function _createMdxContent(props) {
             children: _jsx(LumaKatex, {
               globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
-              content: "A=B",
+              content: "A=B\n",
               meta: JSON.parse(
                 '{"category":"show","mode":"inline","subCategory":"normal"}',
               ),
@@ -63,7 +63,7 @@ function _createMdxContent(props) {
             children: _jsx(LumaKatex, {
               globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
-              content: "A=B",
+              content: "A=B\n",
               meta: JSON.parse(
                 '{"category":"show","mode":"inline","subCategory":"normal"}',
               ),
@@ -90,7 +90,7 @@ function _createMdxContent(props) {
             children: _jsx(LumaKatex, {
               globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
-              content: "A=B",
+              content: "  A=B\n",
               meta: JSON.parse(
                 '{"category":"save","saveName":"","saved":{"category":"show","mode":"display","subCategory":"normal"}}',
               ),
@@ -117,7 +117,7 @@ function _createMdxContent(props) {
             children: _jsx(LumaKatex, {
               globalContext: JSON.parse('""'),
               defContext: globalThis[_rehypeKatexContext0],
-              content: "A=B",
+              content: "  A=B\n",
               meta: JSON.parse(
                 '{"category":"save","saveName":"foo","saved":{"category":"show","mode":"inline","subCategory":"normal"}}',
               ),

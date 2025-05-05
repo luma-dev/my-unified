@@ -150,7 +150,7 @@ function _createMdxContent(props) {
         globalContext: JSON.parse('""'),
         defContext: globalThis[_rehypeKatexContext0],
         content:
-          "\\begin{aligned} a + b &= b + a \\\\ a \\times b &= b \\times a \\end{aligned}",
+          "\\begin{aligned}\n  a + b &= b + a \\\\\n  a \\times b &= b \\times a\n\\end{aligned}",
         meta: JSON.parse(
           '{"category":"show","mode":"display","subCategory":"normal"}',
         ),
