@@ -9,8 +9,8 @@ describe("parseMathTransform", () => {
   it("basic", () => {
     expect(
       parseMathTransform(
-        ["x", "= x^2", "~ x^3", "$ desc1", "- x^4", "? desc2"].join("\n")
-      )
+        ["x", "= x^2", "~ x^3", "$ desc1", "- x^4", "? desc2"].join("\n"),
+      ),
     ).toMatchInlineSnapshot(`
       {
         "first": "x",
@@ -55,7 +55,7 @@ describe("makeMathTransform1Column", () => {
             prefix: "\\iff ",
           },
         ],
-      })
+      }),
     ).toMatchInlineSnapshot(`
       "\\begin{aligned}
       &&&x&&\\\\
@@ -86,7 +86,7 @@ describe("makeMathTransform2Column", () => {
             prefix: "\\iff ",
           },
         ],
-      })
+      }),
     ).toMatchInlineSnapshot(`
       "\\begin{aligned}
       &x&&=&&x^2&&\\\\
@@ -115,7 +115,7 @@ describe("makeMathTransform2Column", () => {
             description: "desc2",
           },
         ],
-      })
+      }),
     ).toMatchInlineSnapshot(`
       "\\begin{aligned}
       &x&&=&&x^2&&\\left({desc1}\\right)\\\\

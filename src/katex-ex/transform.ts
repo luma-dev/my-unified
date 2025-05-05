@@ -15,7 +15,7 @@ export const parseMathTransform = (v: string): MathTransform => {
   const spaces = Math.min(
     ...lines
       .filter((e) => !e.match(/^\s*$/))
-      .map((e) => e.match(/^ */)![0].length)
+      .map((e) => e.match(/^ */)![0].length),
   );
   const [first, ...rest] = lines
     .map((e) => e.slice(spaces))
@@ -87,7 +87,7 @@ export const makeMathTransform2Column = (trans: MathTransform): string => {
         return `&${trans.first}&&${prefix}&&${formula}&&${d}\\\\`;
       }
       return `&&&${prefix}&&${formula}&&${d}\\\\`;
-    }
+    },
   );
 
   const lines = ["\\begin{aligned}", ...main, "\\end{aligned}"];
@@ -100,7 +100,7 @@ export const makeMathTransform1Column = (trans: MathTransform): string => {
         ? `\\left(${descIsText ? "\\text" : ""}{${description}}\\right)`
         : "";
       return `&${prefix}&&${formula}&&${d}\\\\`;
-    }
+    },
   );
 
   const lines = [
