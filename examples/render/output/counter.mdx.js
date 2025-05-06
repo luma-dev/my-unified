@@ -6,6 +6,7 @@ import {
 const _rehypeKatexContext0 = Symbol();
 function _createMdxContent(props) {
   const _components = {
+      br: "br",
       h1: "h1",
       p: "p",
       ...props.components,
@@ -120,13 +121,17 @@ function _createMdxContent(props) {
             index: JSON.parse("0"),
             total: JSON.parse("5"),
           }),
-          "フォークを持つ\n",
+          "フォークを持つ",
+          _jsx(_components.br, {}),
+          "\n",
           _jsx(LumaCounter, {
             template: "%0.",
             index: JSON.parse("1"),
             total: JSON.parse("5"),
           }),
-          "ナイフを持つ\n",
+          "ナイフを持つ",
+          _jsx(_components.br, {}),
+          "\n",
           _jsx(LumaCounter, {
             template: "%0.",
             index: JSON.parse("2"),
@@ -145,7 +150,9 @@ function _createMdxContent(props) {
             index: JSON.parse("3"),
             total: JSON.parse("5"),
           }),
-          "フォークで刺す\n",
+          "フォークで刺す",
+          _jsx(_components.br, {}),
+          "\n",
           _jsx(LumaCounter, {
             template: "[重要] %0.",
             keep: true,
@@ -168,7 +175,9 @@ function _createMdxContent(props) {
             index: JSON.parse("0"),
             total: JSON.parse("2"),
           }),
-          "洗う\n",
+          "洗う",
+          _jsx(_components.br, {}),
+          "\n",
           _jsx(LumaCounter, {
             template: "%0.",
             index: JSON.parse("1"),

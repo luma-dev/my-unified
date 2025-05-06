@@ -6,6 +6,7 @@ import {
 const _rehypeKatexContext0 = Symbol();
 function _createMdxContent(props) {
   const _components = {
+      br: "br",
       h2: "h2",
       p: "p",
       ...props.components,
@@ -51,12 +52,9 @@ function _createMdxContent(props) {
           "で",
           "す",
           "。",
+          _jsx(_components.br, {}),
           "\n",
-          "通",
-          "常",
-          "の",
-          "行",
-          "。",
+          "通常の行。",
         ],
       }),
       "\n",

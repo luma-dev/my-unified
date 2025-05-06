@@ -79,7 +79,7 @@ const rehypeCounter: RehypeCounterPlugin = function () {
         const c = count.get(name) ?? 0;
         node.name = "LumaCounter";
         count.set(name, c + 1);
-        node.attributes.push(...map.get(name), {
+        node.attributes.push(...(map.get(name) ?? []), {
           type: "mdxJsxAttribute",
           name: "index",
           value: {

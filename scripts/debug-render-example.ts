@@ -22,7 +22,7 @@ import rehypeProcTerm, {
   TextPart,
 } from "../src/rehype-proc-term.js";
 import remarkMath from "remark-math";
-
+import remarkBreaks from "remark-breaks";
 import prompt from "prompt";
 
 const projectRoot = path.resolve(__dirname, "..");
@@ -117,6 +117,7 @@ const main = async () => {
         ],
         remarkPlugins: [
           // remarkDebug,
+          remarkBreaks,
           remarkFrontmatter,
           remarkMath,
           remarkTerm,

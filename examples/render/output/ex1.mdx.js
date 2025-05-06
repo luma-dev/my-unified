@@ -8,6 +8,7 @@ function _createMdxContent(props) {
   const _components = {
       a: "a",
       blockquote: "blockquote",
+      br: "br",
       code: "code",
       h1: "h1",
       h2: "h2",
@@ -66,8 +67,13 @@ function _createMdxContent(props) {
         children: "これはh2だよ",
       }),
       "\n",
-      _jsx(_components.p, {
-        children: "文章がここにくるよ1。\n文章がここにくるよ2。",
+      _jsxs(_components.p, {
+        children: [
+          "文章がここにくるよ1。",
+          _jsx(_components.br, {}),
+          "\n",
+          "文章がここにくるよ2。",
+        ],
       }),
       "\n",
       _jsx(_components.pre, {
@@ -89,8 +95,13 @@ function _createMdxContent(props) {
       _jsxs(_components.blockquote, {
         children: [
           "\n",
-          _jsx(_components.p, {
-            children: "これは引用だよ．\nこれは引用だよ．",
+          _jsxs(_components.p, {
+            children: [
+              "これは引用だよ．",
+              _jsx(_components.br, {}),
+              "\n",
+              "これは引用だよ．",
+            ],
           }),
           "\n",
         ],
