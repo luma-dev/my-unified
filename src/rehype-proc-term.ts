@@ -1,4 +1,8 @@
-import { STEP_OVER, visitAsync } from "@luma-dev/unist-util-visit-fast";
+import {
+  REPLACE,
+  STEP_OVER,
+  visitAsync,
+} from "@luma-dev/unist-util-visit-fast";
 import { ElementContent } from "hast";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
 
@@ -18,7 +22,7 @@ export type TextProcessed = readonly TextPart[];
 
 export type TermProcessorProtocol = {
   readonly processText: (
-    text: string,
+    text: string
   ) => TextProcessed | Promise<TextProcessed>;
   [Symbol.dispose]?: () => void;
 };
@@ -35,70 +39,72 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
   return async (tree) => {
     const refCount = new Map<string, number>();
     await visitAsync(tree, async (node) => {
-      if (node.type !== "element") return;
-      if (
-        node.tagName === "pre" ||
-        node.tagName === "code" ||
-        node.tagName === "blockquote"
-      )
-        return STEP_OVER;
+      if (node.type !== "text" || typeof node.value !== "string") return;
 
       const newChildren: ElementContent[] = [];
-      for (const child of node.children) {
-        if (child.type !== "text" || typeof child.value !== "string") {
-          newChildren.push(child);
-          continue;
-        }
-        const text = child.value;
-        const processed = await termProcessor.processText(text);
-        for (const parsed of processed) {
-          switch (parsed.type) {
-            case "text":
-              newChildren.push({
-                type: "text",
-                value: parsed.text,
-              });
-              break;
-            case "term": {
-              const refIndex = refCount.get(parsed.term) ?? 0;
-              refCount.set(parsed.term, refIndex + 1);
-              newChildren.push({
-                type: "mdxJsxFlowElement",
-                name: "Term",
-                attributes: [
-                  { type: "mdxJsxAttribute", name: "text", value: parsed.text },
-                  {
-                    type: "mdxJsxAttribute",
-                    name: "reference",
-                    value: parsed.term,
-                  },
-                  {
-                    type: "mdxJsxAttribute",
-                    name: "refIndex",
-                    value: {
-                      type: "mdxJsxAttributeValueExpression",
-                      value: "",
-                      data: {
-                        estree: estreeJsonParseOf(refIndex),
-                      },
+      const text = node.value;
+
+      if (text.trim() === "") {
+        return STEP_OVER;
+      }
+
+      const processed = await termProcessor.processText(text);
+      for (const parsed of processed) {
+        switch (parsed.type) {
+          case "text":
+            newChildren.push({
+              type: "text",
+              value: parsed.text,
+            });
+            break;
+          case "term": {
+            const refIndex = refCount.get(parsed.term) ?? 0;
+            refCount.set(parsed.term, refIndex + 1);
+            newChildren.push({
+              type: "mdxJsxFlowElement",
+              name: "Term",
+              attributes: [
+                { type: "mdxJsxAttribute", name: "text", value: parsed.text },
+                {
+                  type: "mdxJsxAttribute",
+                  name: "reference",
+                  value: parsed.term,
+                },
+                {
+                  type: "mdxJsxAttribute",
+                  name: "refIndex",
+                  value: {
+                    type: "mdxJsxAttributeValueExpression",
+                    value: "",
+                    data: {
+                      estree: estreeJsonParseOf(refIndex),
                     },
                   },
-                ],
-                children: [],
-              });
-              break;
-            }
-            default:
-              throw new Error(
-                `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`,
-              );
+                },
+              ],
+              children: [],
+            });
+            break;
           }
+          default:
+            throw new Error(
+              `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`
+            );
         }
       }
 
-      node.children = newChildren;
+      if (newChildren.length === 1) {
+        return REPLACE(newChildren[0], STEP_OVER);
+      }
 
-      return STEP_OVER;
+      return REPLACE(
+        {
+          // Fragmentを作る
+          type: "mdxJsxFlowElement",
+          children: newChildren,
+        },
+        STEP_OVER
+      );
     });
     termProcessor[Symbol.dispose]?.();
   };

@@ -1,4 +1,8 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import {
+  Fragment as _Fragment,
+  jsx as _jsx,
+  jsxs as _jsxs,
+} from "react/jsx-runtime";
 const _rehypeKatexContext0 = Symbol();
 function _createMdxContent(props) {
   const _components = {
@@ -24,12 +28,16 @@ function _createMdxContent(props) {
       "\n",
       _jsxs(_components.p, {
         children: [
-          _jsx(Term, {
-            text: "定義",
-            reference: "定義",
-            refIndex: JSON.parse("0"),
+          _jsxs(_Fragment, {
+            children: [
+              _jsx(Term, {
+                text: "定義",
+                reference: "定義",
+                refIndex: JSON.parse("0"),
+              }),
+              "は",
+            ],
           }),
-          "は",
           _jsx(LumaLoaded, {
             byName: JSON.parse('""'),
             found: JSON.parse("true"),
@@ -51,12 +59,16 @@ function _createMdxContent(props) {
       "\n",
       _jsxs(_components.p, {
         children: [
-          _jsx(Term, {
-            text: "定義",
-            reference: "定義",
-            refIndex: JSON.parse("1"),
+          _jsxs(_Fragment, {
+            children: [
+              _jsx(Term, {
+                text: "定義",
+                reference: "定義",
+                refIndex: JSON.parse("1"),
+              }),
+              "は",
+            ],
           }),
-          "は",
           _jsx(LumaLoaded, {
             byName: JSON.parse('"bar"'),
             found: JSON.parse("true"),
@@ -78,12 +90,16 @@ function _createMdxContent(props) {
       "\n",
       _jsxs(_components.p, {
         children: [
-          _jsx(Term, {
-            text: "定義",
-            reference: "定義",
-            refIndex: JSON.parse("2"),
+          _jsxs(_Fragment, {
+            children: [
+              _jsx(Term, {
+                text: "定義",
+                reference: "定義",
+                refIndex: JSON.parse("2"),
+              }),
+              "は",
+            ],
           }),
-          "は",
           _jsx(LumaLoaded, {
             byName: JSON.parse('""'),
             found: JSON.parse("true"),
@@ -105,12 +121,16 @@ function _createMdxContent(props) {
       "\n",
       _jsxs(_components.p, {
         children: [
-          _jsx(Term, {
-            text: "定義",
-            reference: "定義",
-            refIndex: JSON.parse("3"),
+          _jsxs(_Fragment, {
+            children: [
+              _jsx(Term, {
+                text: "定義",
+                reference: "定義",
+                refIndex: JSON.parse("3"),
+              }),
+              "は",
+            ],
           }),
-          "は",
           _jsx(LumaLoaded, {
             byName: JSON.parse('"foo"'),
             found: JSON.parse("true"),
