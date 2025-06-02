@@ -7,7 +7,6 @@ const _rehypeKatexContext0 = Symbol();
 function _createMdxContent(props) {
   const _components = {
       br: "br",
-      h1: "h1",
       h2: "h2",
       li: "li",
       p: "p",
@@ -20,26 +19,15 @@ function _createMdxContent(props) {
   if (!Term) _missingMdxReference("Term", true);
   return _jsxs(LumaMdxLayout, {
     file: JSON.parse(
-      '{"data":{},"history":[],"messages":[],"value":"これは用語を展開するテストです。\\n通常の行。\\n\\n- <>bullet内の用語</>\\n\\n用語の定義をするよ。\\n\\n## タイトル内の用語も置き換えるよ\\n\\n<Foo a={1} />\\n\\n# <>abc<a>hello</a></>\\n"}',
+      '{"data":{},"history":[],"messages":[],"value":"これは用語を展開するテストです。\\n通常の行。\\n\\n- <>bullet内の用語</>\\n\\n用語の定義をするよ。\\n\\n## タイトル内の用語も置き換えるよ\\n\\n<Foo a={1} />\\n"}',
     ),
     meta: JSON.parse("null"),
     toc: JSON.parse(
-      '[{"tag":"h2","index":0,"depth":1,"titleText":"タイトル内の用語も置き換えるよ","level":2,"slug":"タイトル内の用語も置き換えるよ","children":[]},{"tag":"h1","index":1,"depth":1,"titleText":"","level":1,"slug":"","children":[]}]',
+      '[{"tag":"h2","index":0,"depth":1,"titleText":"タイトル内の用語も置き換えるよ","level":2,"slug":"タイトル内の用語も置き換えるよ","children":[]}]',
     ),
     headers: [
       _jsx(_Fragment, {
         children: "タイトル内の用語も置き換えるよ",
-      }),
-      _jsx(_Fragment, {
-        children: _jsxs(_Fragment, {
-          children: [
-            "abc",
-            _jsx("a", {
-              "luma:isInsideToc": JSON.parse("true"),
-              children: "hello",
-            }),
-          ],
-        }),
       }),
     ],
     children: [
@@ -159,19 +147,6 @@ function _createMdxContent(props) {
       "\n",
       _jsx(Foo, {
         a: 1,
-      }),
-      "\n",
-      _jsx(_components.h1, {
-        slug: "",
-        lastH2Slug: "タイトル内の用語も置き換えるよ",
-        children: _jsxs(_Fragment, {
-          children: [
-            "abc",
-            _jsx("a", {
-              children: "hello",
-            }),
-          ],
-        }),
       }),
       (() => {
         delete globalThis[_rehypeKatexContext0];
