@@ -3,9 +3,8 @@ import {
   STEP_OVER,
   visitAsync,
 } from "@luma-dev/unist-util-visit-fast";
-import { ElementContent } from "hast";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
-import { MdxJsxFlowElement, MdxJsxTextElement } from "mdast-util-mdx-jsx";
+import { MdxJsxTextElement } from "mdast-util-mdx-jsx";
 
 type Root = import("hast").Root;
 
