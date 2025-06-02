@@ -5,6 +5,7 @@ import {
 } from "@luma-dev/unist-util-visit-fast";
 import { ElementContent } from "hast";
 import { estreeJsonParseOf } from "./util/estree-json-parse-of.js";
+import { MdxJsxFlowElement, MdxJsxTextElement } from "mdast-util-mdx-jsx";
 
 type Root = import("hast").Root;
 
@@ -22,7 +23,7 @@ export type TextProcessed = readonly TextPart[];
 
 export type TermProcessorProtocol = {
   readonly processText: (
-    text: string,
+    text: string
   ) => TextProcessed | Promise<TextProcessed>;
   [Symbol.dispose]?: () => void;
 };
@@ -37,11 +38,13 @@ export type RehypeProcTermPlugin = import("unified").Plugin<
 >;
 const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
   return async (tree) => {
+    // console.log(`_x_[XXX]_x_ aaaaaaaaaa`);
+    // console.log(require("util").inspect(tree, false, 12, true));
     const refCount = new Map<string, number>();
     await visitAsync(tree, async (node) => {
       if (node.type !== "text" || typeof node.value !== "string") return;
 
-      const newChildren: ElementContent[] = [];
+      const newChildren: MdxJsxTextElement["children"] = [];
       const text = node.value;
 
       if (text.trim() === "") {
@@ -61,7 +64,7 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
             const refIndex = refCount.get(parsed.term) ?? 0;
             refCount.set(parsed.term, refIndex + 1);
             newChildren.push({
-              type: "mdxJsxFlowElement",
+              type: "mdxJsxTextElement",
               name: "Term",
               attributes: [
                 { type: "mdxJsxAttribute", name: "text", value: parsed.text },
@@ -88,7 +91,7 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
           }
           default:
             throw new Error(
-              `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`,
+              `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`
             );
         }
       }
@@ -100,10 +103,12 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
       return REPLACE(
         {
           // Fragmentを作る
-          type: "mdxJsxFlowElement",
+          type: "mdxJsxTextElement",
           children: newChildren,
-        },
-        STEP_OVER,
+          attributes: [],
+          name: null,
+        } satisfies MdxJsxTextElement,
+        STEP_OVER
       );
     });
     termProcessor[Symbol.dispose]?.();
