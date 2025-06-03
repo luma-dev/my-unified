@@ -22,7 +22,7 @@ export type TextProcessed = readonly TextPart[];
 
 export type TermProcessorProtocol = {
   readonly processText: (
-    text: string
+    text: string,
   ) => TextProcessed | Promise<TextProcessed>;
   [Symbol.dispose]?: () => void;
 };
@@ -88,7 +88,7 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
           }
           default:
             throw new Error(
-              `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`
+              `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`,
             );
         }
       }
@@ -105,7 +105,7 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
           attributes: [],
           name: null,
         } satisfies MdxJsxTextElement,
-        STEP_OVER
+        STEP_OVER,
       );
     });
     termProcessor[Symbol.dispose]?.();
