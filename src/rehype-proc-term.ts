@@ -22,7 +22,7 @@ export type TextProcessed = readonly TextPart[];
 
 export type TermProcessorProtocol = {
   readonly processText: (
-    text: string,
+    text: string
   ) => TextProcessed | Promise<TextProcessed>;
   [Symbol.dispose]?: () => void;
 };
@@ -37,8 +37,6 @@ export type RehypeProcTermPlugin = import("unified").Plugin<
 >;
 const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
   return async (tree) => {
-    // console.log(`_x_[XXX]_x_ aaaaaaaaaa`);
-    // console.log(require("util").inspect(tree, false, 12, true));
     const refCount = new Map<string, number>();
     await visitAsync(tree, async (node) => {
       if (node.type !== "text" || typeof node.value !== "string") return;
@@ -90,7 +88,7 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
           }
           default:
             throw new Error(
-              `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`,
+              `Invalid parsed: ${(parsed satisfies never as { type: 0 }).type}`
             );
         }
       }
@@ -107,7 +105,7 @@ const rehypeProcTerm: RehypeProcTermPlugin = ({ termProcessor }) => {
           attributes: [],
           name: null,
         } satisfies MdxJsxTextElement,
-        STEP_OVER,
+        STEP_OVER
       );
     });
     termProcessor[Symbol.dispose]?.();
