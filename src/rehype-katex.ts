@@ -304,7 +304,8 @@ const rehypeKatex: RehypeKatexPlugin = ({
         const content = child.value;
         return show(content, {
           category: "show",
-          mode: "inline",
+          block: false,
+          display: false,
           subCategory: "normal",
         });
       }
