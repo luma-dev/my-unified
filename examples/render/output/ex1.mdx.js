@@ -141,7 +141,7 @@ function _createMdxContent(props) {
             defContext: globalThis[_rehypeKatexContext0],
             content: "a+b",
             meta: JSON.parse(
-              '{"category":"show","mode":"inline","subCategory":"normal"}',
+              '{"category":"show","block":false,"display":false,"subCategory":"normal"}',
             ),
           }),
           " は ",
@@ -150,7 +150,7 @@ function _createMdxContent(props) {
             defContext: globalThis[_rehypeKatexContext0],
             content: "b+a",
             meta: JSON.parse(
-              '{"category":"show","mode":"inline","subCategory":"normal"}',
+              '{"category":"show","block":false,"display":false,"subCategory":"normal"}',
             ),
           }),
           " と等しい。",

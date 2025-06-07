@@ -24,7 +24,7 @@ function _createMdxContent(props) {
           defContext: globalThis[_rehypeKatexContext0],
           content: "ab\\}c",
           meta: JSON.parse(
-            '{"category":"show","mode":"inline","subCategory":"normal"}',
+            '{"category":"show","block":false,"display":false,"subCategory":"normal"}',
           ),
         }),
       }),
