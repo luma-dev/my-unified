@@ -5,27 +5,32 @@ describe("parseMeta", () => {
   it("show", () => {
     expect(parseMeta("")).toStrictEqual({
       category: "show",
-      mode: "display",
+      display: true,
+      block: true,
       subCategory: "normal",
     });
     expect(parseMeta("inline")).toStrictEqual({
       category: "show",
-      mode: "inline",
+      display: false,
+      block: false,
       subCategory: "normal",
     });
-    expect(parseMeta("inline-block")).toStrictEqual({
+    expect(parseMeta("inline block")).toStrictEqual({
       category: "show",
-      mode: "inline-block",
+      display: false,
+      block: true,
       subCategory: "normal",
     });
     expect(parseMeta("trans1")).toStrictEqual({
       category: "show",
-      mode: "display",
+      display: true,
+      block: true,
       subCategory: "transform1",
     });
     expect(parseMeta("display trans2")).toStrictEqual({
       category: "show",
-      mode: "display",
+      display: true,
+      block: true,
       subCategory: "transform2",
     });
   });
@@ -42,7 +47,8 @@ describe("parseMeta", () => {
       saveName: "foo",
       saved: {
         category: "show",
-        mode: "display",
+        display: true,
+        block: true,
         subCategory: "normal",
       },
     });
@@ -51,7 +57,8 @@ describe("parseMeta", () => {
       saveName: "foo",
       saved: {
         category: "show",
-        mode: "display",
+        display: true,
+        block: true,
         subCategory: "transform1",
       },
     });
@@ -60,7 +67,8 @@ describe("parseMeta", () => {
       saveName: "",
       saved: {
         category: "show",
-        mode: "inline",
+        display: false,
+        block: false,
         subCategory: "normal",
       },
     });
