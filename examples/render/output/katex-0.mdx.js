@@ -35,7 +35,7 @@ function _createMdxContent(props) {
         defContext: globalThis[_rehypeKatexContext0],
         content: "\\Tr \\idmat = 1\n",
         meta: JSON.parse(
-          '{"category":"show","mode":"display","subCategory":"normal"}',
+          '{"category":"show","display":true,"block":true,"subCategory":"normal"}',
         ),
       }),
       "\n",
@@ -44,7 +44,7 @@ function _createMdxContent(props) {
         defContext: globalThis[_rehypeKatexContext0],
         content: "1 + 1\n= S(O) + S(O)\n= S(O + S(O))\n= S(S(O))\n",
         meta: JSON.parse(
-          '{"category":"show","mode":"display","subCategory":"transform1"}',
+          '{"category":"show","display":true,"block":true,"subCategory":"transform1"}',
         ),
       }),
       "\n",
@@ -55,7 +55,7 @@ function _createMdxContent(props) {
         defContext: globalThis[_rehypeKatexContext0],
         content: "\\Tr \\idmat = 1\n",
         meta: JSON.parse(
-          '{"category":"show","mode":"display","subCategory":"normal"}',
+          '{"category":"show","display":true,"block":true,"subCategory":"normal"}',
         ),
       }),
       (() => {

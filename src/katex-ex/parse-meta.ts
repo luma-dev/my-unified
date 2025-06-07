@@ -1,5 +1,3 @@
-export type KatexShowMode = "inline" | "inline-block" | "display";
-
 export type KatexLumaMetaDef = {
   readonly category: "def";
 };
@@ -10,7 +8,8 @@ export type KatexLumaMetaSave = {
 };
 export type KatexLumaMetaShow = {
   readonly category: "show";
-  readonly mode: KatexShowMode;
+  readonly display: boolean;
+  readonly block: boolean;
   readonly subCategory: "normal" | "transform1" | "transform2";
 };
 export type KatexLumaMeta =
@@ -21,13 +20,19 @@ export type KatexLumaMeta =
 export const parseMeta = (meta: string): KatexLumaMeta => {
   const parts = meta.trim().split(/\s+/);
 
-  let mode: KatexShowMode = "display";
   let subCategory: "normal" | "transform1" | "transform2" = "normal";
   let saveName: string | null = null;
+  let display = true;
+  let block = true;
 
   for (const part of parts) {
-    if (part === "inline" || part === "inline-block" || part === "display") {
-      mode = part;
+    if (part === "inline") {
+      display = false;
+      block = false;
+    } else if (part === "display") {
+      display = true;
+    } else if (part === "block") {
+      block = true;
     } else if (part === "trans1" || part === "transform1") {
       subCategory = "transform1";
     } else if (part === "trans2" || part === "transform2") {
@@ -41,7 +46,8 @@ export const parseMeta = (meta: string): KatexLumaMeta => {
 
   const showMeta: KatexLumaMetaShow = {
     category: "show",
-    mode,
+    display,
+    block,
     subCategory,
   };
 

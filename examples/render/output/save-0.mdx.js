@@ -46,7 +46,7 @@ function _createMdxContent(props) {
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B\n",
               meta: JSON.parse(
-                '{"category":"show","mode":"inline","subCategory":"normal"}',
+                '{"category":"show","display":false,"block":false,"subCategory":"normal"}',
               ),
             }),
           }),
@@ -77,7 +77,7 @@ function _createMdxContent(props) {
               defContext: globalThis[_rehypeKatexContext0],
               content: "A=B\n",
               meta: JSON.parse(
-                '{"category":"show","mode":"inline","subCategory":"normal"}',
+                '{"category":"show","display":false,"block":false,"subCategory":"normal"}',
               ),
             }),
           }),
@@ -108,7 +108,7 @@ function _createMdxContent(props) {
               defContext: globalThis[_rehypeKatexContext0],
               content: "  A=B\n",
               meta: JSON.parse(
-                '{"category":"save","saveName":"","saved":{"category":"show","mode":"display","subCategory":"normal"}}',
+                '{"category":"save","saveName":"","saved":{"category":"show","display":true,"block":true,"subCategory":"normal"}}',
               ),
             }),
           }),
@@ -139,7 +139,7 @@ function _createMdxContent(props) {
               defContext: globalThis[_rehypeKatexContext0],
               content: "  A=B\n",
               meta: JSON.parse(
-                '{"category":"save","saveName":"foo","saved":{"category":"show","mode":"inline","subCategory":"normal"}}',
+                '{"category":"save","saveName":"foo","saved":{"category":"show","display":false,"block":false,"subCategory":"normal"}}',
               ),
             }),
           }),

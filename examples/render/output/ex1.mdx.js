@@ -163,7 +163,7 @@ function _createMdxContent(props) {
         content:
           "\\begin{aligned}\n  a + b &= b + a \\\\\n  a \\times b &= b \\times a\n\\end{aligned}",
         meta: JSON.parse(
-          '{"category":"show","mode":"display","subCategory":"normal"}',
+          '{"category":"show","display":true,"block":true,"subCategory":"normal"}',
         ),
       }),
       (() => {
